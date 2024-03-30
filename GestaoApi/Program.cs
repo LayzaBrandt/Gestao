@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using GestaoApi.Controllers.Interfaces;
 using GestaoApi.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
@@ -35,6 +36,7 @@ builder.Services.AddSwaggerGen(
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 
 var app = builder.Build();
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -42,12 +44,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
 app.MapControllers();
+//app.MapPut("/api/pessoa", async context => {});
 app.Run();
 /*var summaries = new[]
 {

@@ -135,3 +135,4 @@ C:\Users\Usuario\Desktop\GestaoAngular\GestaoApi\obj\Debug\net8.0\refint\GestaoA
 C:\Users\Usuario\Desktop\GestaoAngular\GestaoApi\obj\Debug\net8.0\GestaoApi.pdb
 C:\Users\Usuario\Desktop\GestaoAngular\GestaoApi\obj\Debug\net8.0\GestaoApi.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\GestaoAngular\GestaoApi\obj\Debug\net8.0\ref\GestaoApi.dll
+C:\Users\Usuario\Desktop\GestaoAngular\GestaoApi\obj\Debug\net8.0\GestaoApi.sourcelink.json

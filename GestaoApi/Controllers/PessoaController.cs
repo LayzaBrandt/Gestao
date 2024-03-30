@@ -25,7 +25,7 @@ namespace GestaoApi.Controllers
             }
             catch (Exception ex)
             {
-                // Trate a exceção de forma apropriada, por exemplo, log ou retorne um StatusCode específico.
+                // Trate a exceï¿½ï¿½o de forma apropriada, por exemplo, log ou retorne um StatusCode especï¿½fico.
                 return StatusCode(500, $"Erro interno do servidor: {ex.Message}");
             }
         }
@@ -49,9 +49,8 @@ namespace GestaoApi.Controllers
             return CreatedAtAction("GetPessoa", new { id = pessoa.Id }, pessoa);
         } 
 
-        [HttpPut("{id}")]
-        public IActionResult AtualizarPessoa(int id, Pessoa pessoa){
-            pessoa.Id = id;
+        [HttpPut]
+        public IActionResult AtualizarPessoa(Pessoa pessoa){
             _pessoaRepository.UpdatePessoa(pessoa);
 
             return NoContent();

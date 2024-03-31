@@ -11,8 +11,12 @@ namespace GestaoApi.Models
 
         public string? Descricao { get; set; }
 
-        public virtual Setor? InformacoesSetor { get; set; }
+        public SetoresEmpresaEnum InformacoesSetor { get; set; }
 
         public decimal valor { get; set; }
+
+        public DateOnly? DataEntrada { get; set; }
+        
+        public DateOnly? DataSaida { get; set; }
     }
 }

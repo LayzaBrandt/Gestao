@@ -18,8 +18,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddDbContext<Contexto>(options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoBD"));
-
-
     });
 builder.Services.AddCors ();
 builder.Services.AddControllers();
@@ -34,6 +32,7 @@ builder.Services.AddSwaggerGen(
           });
       });
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
+builder.Services.AddScoped<ICargoRepository, CargoRepository>();
 
 var app = builder.Build();
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -49,13 +48,5 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.MapControllers();
-//app.MapPut("/api/pessoa", async context => {});
 app.Run();
-/*var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};*/
-
-
-//app.Run();
 

@@ -30,6 +30,12 @@ namespace GestaoApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateOnly?>("DataEntrada")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly?>("DataSaida")
+                        .HasColumnType("date");
+
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
 
@@ -54,8 +60,11 @@ namespace GestaoApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("DataNascimento")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly?>("DataNascimento")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Endereco")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("InformacoesCargoId")
                         .HasColumnType("bigint");

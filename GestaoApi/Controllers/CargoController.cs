@@ -15,8 +15,8 @@ namespace GestaoApi.Controllers
             _cargoRepository = cargoRepository;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cargo>>> GetCargos(){
-
+        public async Task<ActionResult<IEnumerable<Cargo>>> GetCargos()
+        {
             try
             {
                 var cargos = await _cargoRepository.SelecionaTodos();
@@ -24,12 +24,9 @@ namespace GestaoApi.Controllers
             }
             catch (Exception ex)
             {
-                // Trate a exce��o de forma apropriada, por exemplo, log ou retorne um StatusCode espec�fico.
                 return StatusCode(500, $"Erro interno do servidor: {ex.Message}");
             }
         }
-
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Cargo>> GetCargo(int id){

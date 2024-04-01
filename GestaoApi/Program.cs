@@ -33,16 +33,17 @@ builder.Services.AddSwaggerGen(
       });
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<ICargoRepository, CargoRepository>();
+builder.Services.AddScoped<IDocumentoCartaOficialDesligamentoRepository, DocumentoCartaOficialDesligamentoRepository>();
 
 var app = builder.Build();
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+/*if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+}*/
 app.UseHttpsRedirection();
 app.UseRouting();
 

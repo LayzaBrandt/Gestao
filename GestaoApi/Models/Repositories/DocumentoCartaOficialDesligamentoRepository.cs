@@ -19,7 +19,7 @@ public class DocumentoCartaOficialDesligamentoRepository : IDocumentoCartaOficia
         {
             if (_context == null)
             {
-                _logger.LogError("O contexto n�o est� inicializado.");
+                _logger.LogError("O contexto não esta inicializado.");
                 return Enumerable.Empty<DocumentoCartaOficialDesligamento>();
             }
 
@@ -64,14 +64,15 @@ public class DocumentoCartaOficialDesligamentoRepository : IDocumentoCartaOficia
 
     public async Task<DocumentoCartaOficialDesligamento> SelecionarByPK(int id)
     {
-        var documento = await _context.Documento.Where(x => x.Id == id).FirstOrDefaultAsync();
+        var documento = await _context.Documento.Include(c => c.idPessoa)
+                .Where(x => x.Id == id).FirstOrDefaultAsync();
         if (documento != null)
         {
             return documento;
         }
         else
         {
-            throw new NotFoundException($"Documento com ID {id} n�o encontrado");
+            throw new NotFoundException($"Documento com ID {id} não encontrado");
         }
     }
 

@@ -22,11 +22,8 @@ public class CargoRepository : ICargoRepository
                 _logger.LogError("O contexto n�o est� inicializado.");
                 return Enumerable.Empty<Cargo>();
             }
-
             var cargo = await _context.Cargo
-                .Include(c => c.InformacoesSetor)
                 .ToListAsync();
-
             return cargo;
         }
         catch (Exception ex)

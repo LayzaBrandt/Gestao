@@ -6,6 +6,7 @@ namespace GestaoApi.Models
     {
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Cargo> Cargo { get; set; }
+        public DbSet<DocumentoCartaOficialDesligamento> Documento { get; set; }
 
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {

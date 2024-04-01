@@ -16,7 +16,6 @@ namespace GestaoApi.Controllers
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pessoa>>> GetPessoas(){
-            //return await _pessoaRepository.Pessoa.ToListAsync();
 
             try
             {
@@ -25,7 +24,6 @@ namespace GestaoApi.Controllers
             }
             catch (Exception ex)
             {
-                // Trate a exce��o de forma apropriada, por exemplo, log ou retorne um StatusCode espec�fico.
                 return StatusCode(500, $"Erro interno do servidor: {ex.Message}");
             }
         }

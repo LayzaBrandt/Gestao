@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestaoApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20240331012320_RetirarTabelas")]
-    partial class RetirarTabelas
+    [Migration("20240401042605_CriarTabelaDocumento")]
+    partial class CriarTabelaDocumento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace GestaoApi.Migrations
 
             modelBuilder.Entity("GestaoApi.Models.Cargo", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly?>("DataEntrada")
                         .HasColumnType("date");
@@ -42,17 +42,48 @@ namespace GestaoApi.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("InformacoesSetorId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("InformacoesSetor")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("valor")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InformacoesSetorId");
-
                     b.ToTable("Cargo");
+                });
+
+            modelBuilder.Entity("GestaoApi.Models.DocumentoCartaOficialDesligamento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Empresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly?>("dataEfetivaDesligamento")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("dataEmissao")
+                        .HasColumnType("date");
+
+                    b.Property<string>("enderecoEmpresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idMotivoDesligamento")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("idPessoaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("idPessoaId");
+
+                    b.ToTable("Documento");
                 });
 
             modelBuilder.Entity("GestaoApi.Models.Pessoa", b =>
@@ -69,8 +100,8 @@ namespace GestaoApi.Migrations
                     b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("InformacoesCargoId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("InformacoesCargoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
@@ -85,29 +116,13 @@ namespace GestaoApi.Migrations
                     b.ToTable("Pessoa");
                 });
 
-            modelBuilder.Entity("GestaoApi.Models.Setor", b =>
+            modelBuilder.Entity("GestaoApi.Models.DocumentoCartaOficialDesligamento", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Setor");
-                });
-
-            modelBuilder.Entity("GestaoApi.Models.Cargo", b =>
-                {
-                    b.HasOne("GestaoApi.Models.Setor", "InformacoesSetor")
+                    b.HasOne("GestaoApi.Models.Pessoa", "idPessoa")
                         .WithMany()
-                        .HasForeignKey("InformacoesSetorId");
+                        .HasForeignKey("idPessoaId");
 
-                    b.Navigation("InformacoesSetor");
+                    b.Navigation("idPessoa");
                 });
 
             modelBuilder.Entity("GestaoApi.Models.Pessoa", b =>

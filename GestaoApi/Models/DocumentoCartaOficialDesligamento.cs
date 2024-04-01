@@ -11,7 +11,7 @@ namespace GestaoApi.Models
 
         public string? Empresa { get; set; }
 
-        public virtual Pessoa? idPessoa { get; set; }
+        public virtual Pessoa idPessoa { get; set; }
 
         public string? enderecoEmpresa { get; set; }
 

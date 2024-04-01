@@ -19,7 +19,7 @@ public class PessoaRepository : IPessoaRepository
         {
             if (_context == null)
             {
-                _logger.LogError("O contexto n�o est� inicializado.");
+                _logger.LogError("O contexto n�o est� inicializado.");
                 return Enumerable.Empty<Pessoa>();
             }
 
@@ -37,7 +37,10 @@ public class PessoaRepository : IPessoaRepository
     }
     public void AddPessoa(Pessoa pessoa)
     {
-        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Pessoa ON");
+        if (pessoa.InformacoesCargo != null)
+        {
+            _context.Attach(pessoa.InformacoesCargo);
+        }
         _context.Pessoa.Add(pessoa);
         _context.SaveChanges();
     }
@@ -45,29 +48,46 @@ public class PessoaRepository : IPessoaRepository
     public void UpdatePessoa(Pessoa pessoa)
     {
         _context.Entry(pessoa).State = EntityState.Modified;
+        if (pessoa.InformacoesCargo != null)
+        {
+            _context.Attach(pessoa.InformacoesCargo);
+        }
         _context.SaveChanges();
     }
 
     public void RemovePessoa(int id)
     {
         var pessoa = _context.Pessoa.Find(id);
-        if (pessoa != null)
+
+        if (pessoa == null)
         {
-            _context.Pessoa.Remove(pessoa);
-            _context.SaveChanges();
+            throw new NotFoundException($"Pessoa com ID {id} não encontrada.");
         }
+
+        var documento = _context.Documento.FirstOrDefault(x => x.idPessoa == pessoa);
+
+        if (documento != null)
+        {
+            throw new NotFoundException($"Não foi possível excluir. Documento vinculado à pessoa a ser excluída.");
+        }
+
+        _context.Pessoa.Remove(pessoa);
+        _context.SaveChanges();
     }
 
     public async Task<Pessoa> SelecionarByPK(int id)
     {
-        var pessoa = await _context.Pessoa.Where(x => x.Id == id).FirstOrDefaultAsync();
+        var pessoa = await _context.Pessoa.Include(c => c.InformacoesCargo)
+             .Where(x => x.Id == id).FirstOrDefaultAsync();
+
+
         if (pessoa != null)
         {
             return pessoa;
         }
         else
         {
-            throw new NotFoundException($"Pessoa com ID {id} n�o encontrado");
+            throw new NotFoundException($"Pessoa com ID {id} não encontrado");
         }
     }
 

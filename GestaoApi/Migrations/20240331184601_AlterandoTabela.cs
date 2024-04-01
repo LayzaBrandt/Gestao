@@ -6,32 +6,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GestaoApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Tabelas : Migration
+    public partial class AlterandoTabela : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Setor",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Setor", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cargo",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InformacoesSetorId = table.Column<long>(type: "bigint", nullable: true),
+                    InformacoesSetor = table.Column<int>(type: "int", nullable: false),
                     valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DataEntrada = table.Column<DateOnly>(type: "date", nullable: true),
                     DataSaida = table.Column<DateOnly>(type: "date", nullable: true)
@@ -39,11 +26,6 @@ namespace GestaoApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cargo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cargo_Setor_InformacoesSetorId",
-                        column: x => x.InformacoesSetorId,
-                        principalTable: "Setor",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -56,8 +38,7 @@ namespace GestaoApi.Migrations
                     Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Endereco = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataNascimento = table.Column<DateOnly>(type: "date", nullable: true),
-                    InformacoesCargoId = table.Column<long>(type: "bigint", nullable: true),
-                    JoaoKelvin = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    InformacoesCargoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,11 +49,6 @@ namespace GestaoApi.Migrations
                         principalTable: "Cargo",
                         principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cargo_InformacoesSetorId",
-                table: "Cargo",
-                column: "InformacoesSetorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pessoa_InformacoesCargoId",
@@ -88,9 +64,6 @@ namespace GestaoApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cargo");
-
-            migrationBuilder.DropTable(
-                name: "Setor");
         }
     }
 }

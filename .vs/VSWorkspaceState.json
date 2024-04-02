@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\GestaoAngular",
+    "\\GestaoApi\\Controllers",
+    "\\GestaoApi\\Controllers\\Interfaces",
+    "\\GestaoApi\\Models",
+    "\\GestaoApi\\Models\\Repositories"
   ],
+  "SelectedNode": "\\GestaoAngular.sln",
   "PreviewInSolutionExplorer": false
 }

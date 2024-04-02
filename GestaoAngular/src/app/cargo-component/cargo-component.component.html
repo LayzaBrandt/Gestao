@@ -1,0 +1,91 @@
+<div class="container mt-5 mb-5">
+    <div class="border border-light rounded p-4" *ngIf="visibilidadeTabela">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="text-secondary m-0">Lista de Cargos</h5>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="ExibirFormularioCadastro()">Novo Cargo</button>
+        </div>
+        <hr>
+        <table class="table table-striped table-hover table-sm" *ngIf="cargos && cargos.length">
+            <thead class="thead-light">
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data de entrada</th>
+                    <th>Data de saída</th>
+                    <th>Setor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cargo of cargos">
+                    <td>{{ cargo.descricao }}</td>
+                    <td>{{ cargo.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+                    <td>{{ cargo.dataEntrada }}</td>
+                    <td>{{ cargo.dataSaida }}</td>
+                    <td>{{ getDescricaoSetor(cargo.informacoesSetor) }}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-info mr-2" (click)="ExibirFormularioAtualizacao(cargo.id)">Atualizar</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="ExibirConfirmacaoExclusao(cargo.id, cargo.descricao, conteudoModal)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container p-5" *ngIf="visibilidadeFormulario">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 border border-light rounded p-4 shadow" *ngIf="formulario">
+            <h6 class="text-secondary mb-4">{{ tituloFormularioCargo }}</h6>
+            <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+                <div class="form-group">
+                    <label>Nome do Cargo</label>
+                    <input type="text" class="form-control" formControlName="descricao"/>
+                </div>
+                <div class="form-group">
+                    <label>Setor</label>
+                    <select class="form-control" formControlName="informacoesSetor">
+                        <option *ngFor="let setor of enumKeys" [ngValue]="setoresEmpresa[setor]">{{ setor }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Valor</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">R$</span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="valor" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Data de Entrada</label>
+                    <input type="date" class="form-control" formControlName="dataEntrada"/>
+                </div>
+                <div class="form-group">
+                    <label>Data de Saída</label>
+                    <input type="date" class="form-control" formControlName="dataSaida"/>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-secondary mr-2">Salvar</button>
+                    <button type="button" class="btn btn-light" (click)="Voltar()">Voltar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #conteudoModal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirmação de exclusão</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Prosseguir com a exclusão do {{ nomeCargo }}?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="ExcluirCargo(cargoId)">Excluir</button>
+    </div>
+</ng-template>

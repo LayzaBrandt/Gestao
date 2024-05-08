@@ -20,17 +20,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CargoComponent } from './cargo-component/cargo-component.component';
-import { TopBarComponent } from './top-bar-components/top-bar.component';
+import { TabService } from './tab.service'; // Importe o serviço
 import { DocumentoComponent } from './documento-component/documento-component.component';
 import { DocumentoService } from './documento.service';
+import { TabComponent } from './tab/tab.component';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import { MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [		
     AppComponent,
     PessoaComponent,
     CargoComponent,
-    TopBarComponent,
-    DocumentoComponent
+    DocumentoComponent,
+    TabComponent
    ],
   imports: [
     BrowserModule,
@@ -48,9 +51,11 @@ import { DocumentoService } from './documento.service';
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
     ModalModule.forRoot()
   ],
-  providers: [HttpClientModule, PessoaService, CargoService, DocumentoService],
+  providers: [HttpClientModule,TabService, PessoaService, CargoService, DocumentoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

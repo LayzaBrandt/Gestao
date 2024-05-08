@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TabService } from './tab.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] // Aqui está a correção
 })
-export class AppComponent {
+
+export class AppComponent implements OnInit {
   title = 'GestaoAngular';
+  constructor(private tabService: TabService) { }
+
+  ngOnInit() {
+    // Define a aba inicial
+    this.tabService.setCurrentPage('home');
+  }
 }

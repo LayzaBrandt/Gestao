@@ -1,39 +1,40 @@
-<div class="container mt-5 mb-5" *ngIf="visibilidadeTabela">
-    <div class="border border-light rounded p-4">
-        <div class="d-flex justify-content-between mb-3">
-            <h5 class="text-secondary">Lista de Pessoas</h5>
-            <button type="button" class="btn btn-sm btn-secondary" (click)="ExibirFormularioCadastro()">Nova Pessoa</button>
+<div class=" container  mt-4 mb-50" *ngIf="visibilidadeTabela">
+    <div class="bg-gray-200 border border-gray-800 rounded p-5 shadow-md ">
+        <div class="d-flex justify-content-between mb-2">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+            <h1 class="text-lg font-bold text-gray-800">Lista de pessoas cadastradas</h1>
+            <button type="button" class="btn text-gray-100 hover:bg-gray-400 rounded-md px-3 bg-gray-800" (click)="ExibirFormularioCadastro()">+</button>
         </div>
         <hr/>
-        <table class="table table-striped table-hover table-sm">
-            <thead class="thead-light">
+        <hr class="my-2 ">
+        <table class=" w-full">
+            <thead class="border p-5 bg-gray-100 ">
                 <tr>
-                    <th>Nome</th>
-                    <th>Sobrenome</th>
-                    <th>Data de nascimento</th>
-                    <th>Endereço</th>
-                    <th>Cargo</th>
-                    <th>Ações</th>
+                    <th class="border px-3 py-2">Nome</th>
+                    <th class="border px-3 py-2">Sobrenome</th>
+                    <th class="border px-3 py-2">Data de nascimento</th>
+                    <th class="border px-3 py-2">Endereço</th>
+                    <th class="border px-3 py-2">Cargo</th>
+                    <th class="border px-3 py-2">Ações</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let pessoa of pessoas">
-                    <td>{{ pessoa.nome }}</td>
-                    <td>{{ pessoa.sobrenome }}</td>
-                    <td>{{ pessoa.dataNascimento }}</td>
-                    <td>{{ pessoa.endereco }}</td>
-                    <td>{{ pessoa.informacoesCargo.descricao }}</td>
-                    <td>
-                        <button type="button" class="btn btn-sm btn-outline-info mr-2" (click)="ExibirFormularioAtualizacao(pessoa.id)">Atualizar</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">Excluir</button>
+            <tbody >
+                <tr *ngFor="let pessoa of pessoas" class="hover:bg-gray-300">
+                    <td class="border  px-3 py-2 ">{{ pessoa.nome }}</td>
+                    <td class="border  px-3 py-2">{{ pessoa.sobrenome }}</td>
+                    <td class="border  px-3 py-2">{{ pessoa.dataNascimento }}</td>
+                    <td class="border  px-3 py-2">{{ pessoa.endereco }}</td>
+                    <td class="border px-3 py-2">{{ pessoa.informacoesCargo.descricao }}</td>
+                    <td class="border  px-3 py-2">
+                        <button type="button" class="btn btn-sm btn-outline-info mr-2 hover:bg-gray-800" (click)="ExibirFormularioAtualizacao(pessoa.id)">Atualizar</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger hover:bg-gray-800" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">Excluir</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-<div class="container mt-5 mb-5" *ngIf="visibilidadeFormulario">
+<div class="container mt-3 mb-3" *ngIf="visibilidadeFormulario">
     <div class="row">
         <div class="col-lg-6 col-md-8 col-sm-10 border border-light rounded p-4 shadow">
             <h5 class="text-secondary mb-4">{{ tituloFormulario }}</h5>

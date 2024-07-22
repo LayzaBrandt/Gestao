@@ -24,7 +24,7 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-XTKB2QWY.js";
+} from "./chunk-MJ5EC5GI.js";
 import {
   DOCUMENT,
   Location
@@ -4320,4 +4320,4 @@ export {
   CdkConnectedOverlay,
   OverlayModule
 };
-//# sourceMappingURL=chunk-JA3ACLQO.js.map
+//# sourceMappingURL=chunk-UQCEFLJK.js.map

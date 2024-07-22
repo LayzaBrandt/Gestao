@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\GestaoAngular\\GestaoApi\\GestaoApi.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\GesTeste\\Gestao\\GestaoApi\\GestaoApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\GestaoAngular\\GestaoApi\\GestaoApi.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\GesTeste\\Gestao\\GestaoApi\\GestaoApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\GestaoAngular\\GestaoApi\\GestaoApi.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\GesTeste\\Gestao\\GestaoApi\\GestaoApi.csproj",
         "projectName": "GestaoApi",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\GestaoAngular\\GestaoApi\\GestaoApi.csproj",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\GesTeste\\Gestao\\GestaoApi\\GestaoApi.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\GestaoAngular\\GestaoApi\\obj\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\GesTeste\\Gestao\\GestaoApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",

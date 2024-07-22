@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-800 shadow-lg">
-    <nav class="bg-gray-800 ">
+<body class="bg-colorVerde shadow-lg">
+    <nav>
         <div class="mx-auto px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-20 items-center justify-between">
                 <div class="max-w-7xl px-3 sm:px-6 lg:px-8">
-                    <div class="hidden sm:flex space-x-8 ">
-                         <div class="items-center">
-                            <img class="h-45 w-30 " src="../../assets/img/GestesteMenor.png" alt="Logo">
-                        </div> 
-                        <div class="h-45 w-30 p-3">
-                        <button class="tablink text-gray-400 hover:text-gray-800 rounded-md px-3" (click)="openPage('home')">Inicio</button>
-                        <button class="tablink text-gray-400 hover:text-gray-800 rounded-md px-3" (click)="openPage('pessoa')">Pessoas</button>
-                        <button class="tablink text-gray-400 hover:text-gray-800 rounded-md px-3" (click)="openPage('cargos')">Cargos</button>
-                        <button class="tablink text-gray-400 hover:text-gray-800 rounded-md px-3" (click)="openPage('documentos')">Documentos</button>
+                    <div class="hidden sm:flex space-x-8">
+                        <!-- <div class="items-center">
+                            <img class="h-45 w-30" src="../../assets/img/GestesteMenor.png" alt="Logo">
+                        </div> -->
+                        <div class="h-45 w-30 ">
+                            <button class="tablink text-colorRoxo hover:text-colorAzul rounded-md px-3" onclick="openPage('home')">Inicio</button>
+                            <button class="tablink text-colorRoxo hover:text-colorAzul rounded-md px-3" onclick="openPage('pessoa')">Pessoas</button>
+                            <button class="tablink text-colorRoxo hover:text-colorAzul rounded-md px-3" onclick="openPage('cargos')">Cargos</button>
+                            <button class="tablink text-colorRoxo hover:text-colorAzul rounded-md px-3" onclick="openPage('documentos')">Documentos</button>
                         </div>
                     </div>
                 </div>
@@ -26,9 +26,4 @@
         </div>
     </nav>
 </body>
-<!-- <body class="bg-gray-200 shadow-lg">
- <div class="mx-auto px-16 sm:px-30 lg:px-50 items-center">
-    <img class="h-45 w-40" src="../../assets/img/GestesteTituloGrande.png" alt="Logo">
-</div> 
-</body> -->
 </html>

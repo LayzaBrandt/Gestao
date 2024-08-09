@@ -1,33 +1,33 @@
 <div class=" container  mt-4 mb-50" *ngIf="visibilidadeTabela">
-    <div class="bg-gray-200 border border-gray-800 rounded p-5 shadow-md ">
+    <div class="bg-colorAzul border rounded-md p-5 shadow-md ">
         <div class="d-flex justify-content-between mb-2">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-            <h1 class="text-lg font-bold text-gray-800">Lista de pessoas cadastradas</h1>
-            <button type="button" class="btn text-gray-100 hover:bg-gray-400 rounded-md px-3 bg-gray-800" (click)="ExibirFormularioCadastro()">+</button>
+            <h1 class="font-bold text-colorVerde text-xl">Lista de pessoas cadastradas</h1>
+            <button type="button" class="btn text-colorGoiaba hover:bg-gray-400 rounded-md px-3 bg-gray-800" (click)="ExibirFormularioCadastro()">+</button>
         </div>
         <hr/>
         <hr class="my-2 ">
-        <table class=" w-full">
-            <thead class="border p-5 bg-gray-100 ">
+        <table class=" w-full rounded-md text-sm ">
+            <thead style="border: 1px solid  rgba(32, 31, 68, 0.397);" class="p-5 bg-slate-900 text-colorVerde">
                 <tr>
-                    <th class="border px-3 py-2">Nome</th>
-                    <th class="border px-3 py-2">Sobrenome</th>
-                    <th class="border px-3 py-2">Data de nascimento</th>
-                    <th class="border px-3 py-2">Endereço</th>
-                    <th class="border px-3 py-2">Cargo</th>
-                    <th class="border px-3 py-2">Ações</th>
+                    <th class=" px-3 py-2">Nome</th>
+                    <th class=" px-3 py-2">Sobrenome</th>
+                    <th class=" px-3 py-2">Data de nascimento</th>
+                    <th class=" px-3 py-2">Endereço</th>
+                    <th class=" px-3 py-2">Cargo</th>
+                    <th class=" px-3 py-2">Ações</th>
                 </tr>
             </thead>
             <tbody >
-                <tr *ngFor="let pessoa of pessoas" class="hover:bg-gray-300">
-                    <td class="border  px-3 py-2 ">{{ pessoa.nome }}</td>
-                    <td class="border  px-3 py-2">{{ pessoa.sobrenome }}</td>
-                    <td class="border  px-3 py-2">{{ pessoa.dataNascimento }}</td>
-                    <td class="border  px-3 py-2">{{ pessoa.endereco }}</td>
-                    <td class="border px-3 py-2">{{ pessoa.informacoesCargo.descricao }}</td>
-                    <td class="border  px-3 py-2">
-                        <button type="button" class="btn btn-sm btn-outline-info mr-2 hover:bg-gray-800" (click)="ExibirFormularioAtualizacao(pessoa.id)">Atualizar</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger hover:bg-gray-800" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">Excluir</button>
+                <tr *ngFor="let pessoa of pessoas" class=" text-sm text-colorVerde hover:bg-slate-500 hover:text-slate-800">
+                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);" class="px-3 py-2 ">{{ pessoa.nome }}</td>
+                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.sobrenome }}</td>
+                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.dataNascimento }}</td>
+                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.endereco }}</td>
+                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.informacoesCargo.descricao }}</td>
+                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);" class="px-3 py-2">
+                        <button type="button"style="border: 2px solid  rgba(32, 31, 68, 0.397) " class="btn btn-sm font-bold  btn-outline-info mr-2 bg-slate-900 text-violet-50 hover:bg-gray-800" (click)="ExibirFormularioAtualizacao(pessoa.id)">Atualizar</button>
+                        <button type="button" style="border: 2px solid  rgba(32, 31, 68, 0.397) " class="btn btn-sm btn-outline-danger font-bold  bg-slate-900 text-colorVermelho hover:bg-colorVermelho" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">Excluir</button>
                     </td>
                 </tr>
             </tbody>

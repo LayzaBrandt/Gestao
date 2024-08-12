@@ -5,13 +5,21 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.component.html',
-  styleUrls: ['./tab.component.css']
+  styleUrls: ['./tab.component.css'],
 })
 export class TabComponent implements OnInit {
+  isOpen = false;
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+
 
   currentPage: string = 'home';
 
-  constructor(private tabService: TabService,private router: Router) { }
+  constructor(
+    private tabService: TabService
+    ,private router: Router) { }
 
   ngOnInit(): void {
     this.tabService.currentPage.subscribe(page => {
@@ -44,4 +52,7 @@ export class TabComponent implements OnInit {
   //toggleDropdown() {
   //this.dropdownOpen = !this.dropdownOpen;
   //}
+
 }
+
+

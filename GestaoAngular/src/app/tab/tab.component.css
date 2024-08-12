@@ -1,0 +1,71 @@
+/* Estilos Globais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+}
+
+/* Imagem do Navbar */
+.navbar img {
+    height: 80px;
+}
+
+/* Estilos do Conteúdo da Aba */
+.tab-content {
+    display: none; /* Oculta o conteúdo da aba por padrão */
+}
+
+.tab-content.active {
+    display: block; /* Exibe o conteúdo da aba quando ativo */
+}
+
+/* Estilos dos Botões de Aba */
+.tablink {
+    font-weight: bold;
+    color: hsl(222, 29%, 66%); /* Azul Claro */
+    background-color: #0f172a; /* Slate 900 */
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 0.5rem 1.5rem;
+    margin: 0.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+}
+
+/* Estilos dos Botões de Aba ao Passar o Mouse */
+.tablink:hover {
+    background-color: #f57e67; /* Cor Goiaba */
+    color: #0f172a; /* Slate 900 */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Estilos dos Botões de Aba ao Clicar */
+.tablink:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Estilos do Conteúdo das Abas */
+.tabcontent {
+    display: none; /* Oculta o conteúdo da aba por padrão */
+}
+
+.tabcontent:first-child {
+    display: block; /* Exibe o primeiro conteúdo de aba por padrão */
+}
+
+/* Cores de Fundo Personalizadas */
+.bg-slate-800 {
+    background-color: #1e293b; /* Slate 800 */
+}
+
+.bg-slate-900 {
+    background-color: #0f172a; /* Slate 900 */
+}

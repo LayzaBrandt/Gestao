@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-</head>
-<body class="bg-colorVermelho w-full h-full">
-<div   class="w-full">
-    <nav class="bg-colorAzul shadow-md ">
-        <div class="mx-auto px-2 sm:px-6 lg:px-8">
-            <div class="relative flex h-20 items-center justify-between">
-                <div class="max-w-7xl px-3 sm:px-6 lg:px-8">
-                    <div class="hidden sm:flex space-x-8">
-                         <div class="items-center">
-                            <img class="h-45 w-30 " src="../../assets/img/GestesteMenor.png" alt="Logo">
-                        </div> 
-                        <div class="h-45 w-30 p-4 ">
-                            <button class="tablink font-bold text-colorVerde bg-slate-900  rounded-md hover:bg-colorRoxo hover:text-colorGoiaba px-5 p-1 m-1 shadow-md" onclick="openPage('home')">Inicio</button>
-                            <button class="tablink font-bold text-colorVerde bg-slate-900  rounded-md hover:bg-colorRoxo hover:text-colorGoiaba px-5 p-1 m-1 shadow-md" onclick="openPage('pessoa')">Pessoas</button>
-                            <button class="tablink font-bold text-colorVerde bg-slate-900  rounded-md hover:bg-colorRoxo hover:text-colorGoiaba px-5 p-1 m-1 shadow-md" onclick="openPage('cargos')">Cargos</button>
-                            <button class="tablink font-bold text-colorVerde bg-slate-900  rounded-md hover:bg-colorRoxo hover:text-colorGoiaba px-5 p-1 m-1 shadow-md" onclick="openPage('documentos')">Documentos</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<div class="bg-gray-200 border border-gray-400 h-20 flex justify-center items-center">
+    <img src="../../assets/img/Gesteste (140 x 80 px).png" alt="Logo">
 </div>
-</body>
-</html>
+
+<aside class=" flex justify-between p-4 bg-gray-200">
+    <div class="flex justify-start items-center">
+    <button class="bg-colorGoiaba text-white px-5 py-2 rounded-lg shadow-md hover:bg-slate-900 transition duration-800 flex items-center" (click)="toggle()">
+        <lucide-icon name="menu" class="w-6 h-6 mr-2"></lucide-icon>
+    </button>
+    </div>
+    <div class="flex justify-end ">
+    <button class="bg-colorGoiaba text-white flex m-1 px-2 py-1 rounded-lg shadow-md hover:bg-slate-900 transition duration-800  " >
+        <lucide-icon name="circle-user" class="w-6 h-6 mr-1"></lucide-icon>
+    </button>
+    <button class="bg-colorGoiaba text-white m-1 px-2 py-1 rounded-lg shadow-md hover:bg-slate-900 transition duration-800 flex items-center" >
+        <lucide-icon name="circle-help" class="w-6 h-6 mr-1"></lucide-icon> Dúvidas
+    </button>
+</div>
+</aside>
+<div *ngIf="isOpen" class="p-5 w-25 bg-gray-200 border-t shadow-lg rounded-lg mt-2">
+    <button class="tablink bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300 block w-full text-left mb-2" (click)="openPage('home')">Inicio</button>
+    <button class="tablink bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300 block w-full text-left mb-2" (click)="openPage('pessoa')">Pessoas</button>
+    <button class="tablink bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300 block w-full text-left mb-2" (click)="openPage('cargos')">Cargos</button>
+    <button class="tablink bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300 block w-full text-left" (click)="openPage('documentos')">Documentos</button>
+</div>
+
+
+

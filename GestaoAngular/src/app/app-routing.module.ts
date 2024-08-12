@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PessoaComponent } from './components/pessoa-component/pessoa-component.component';
 import { CargoComponent } from './cargo-component/cargo-component.component';
 import { DocumentoComponent } from './documento-component/documento-component.component';
+import { LucideAngularModule, Menu } from 'lucide-angular';
 
 const routes: Routes = [
   { path: 'pessoa', component: PessoaComponent },
@@ -11,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),LucideAngularModule.pick({ Menu })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

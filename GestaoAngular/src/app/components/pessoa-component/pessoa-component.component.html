@@ -1,74 +1,85 @@
-<div class=" container  mt-4 mb-50" *ngIf="visibilidadeTabela">
-    <div class="bg-colorAzul border rounded-md p-5 shadow-md ">
-        <div class="d-flex justify-content-between mb-2">
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-            <h1 class="font-bold text-colorVerde text-xl">Lista de pessoas cadastradas</h1>
-            <button type="button" class="btn text-colorGoiaba hover:bg-gray-400 rounded-md px-3 bg-gray-800" (click)="ExibirFormularioCadastro()">+</button>
+<section class="h-full w-full"  *ngIf="visibilidadeTabela">
+    <div class="bg-gray-200 rounded-md p-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba pb-2">
+                Lista de Pessoas Cadastradas
+            </h1>
+            <button type="button" class="bg-gray-800 text-colorGoiaba hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105" (click)="ExibirFormularioCadastro()">
+                <lucide-icon name="circle-plus"></lucide-icon>
+            </button>
         </div>
-        <hr/>
-        <hr class="my-2 ">
-        <table class=" w-full rounded-md text-sm ">
-            <thead style="border: 1px solid  rgba(32, 31, 68, 0.397);" class="p-5 bg-slate-900 text-colorVerde">
+        
+        <hr />
+        <hr class="my-2">
+        <table class="w-full rounded-lg overflow-hidden shadow-lg bg-white">
+            <thead class="bg-gray-800 text-white">
                 <tr>
-                    <th class=" px-3 py-2">Nome</th>
-                    <th class=" px-3 py-2">Sobrenome</th>
-                    <th class=" px-3 py-2">Data de nascimento</th>
-                    <th class=" px-3 py-2">Endereço</th>
-                    <th class=" px-3 py-2">Cargo</th>
-                    <th class=" px-3 py-2">Ações</th>
+                    <th class="px-4 py-2 text-left">Nome</th>
+                    <th class="px-4 py-2 text-left">Sobrenome</th>
+                    <th class="px-4 py-2 text-left">Data de Nascimento</th>
+                    <th class="px-4 py-2 text-left">Endereço</th>
+                    <th class="px-4 py-2 text-left">Cargo</th>
+                    <th class="px-4 py-2 text-left">Ações</th>
                 </tr>
             </thead>
-            <tbody >
-                <tr *ngFor="let pessoa of pessoas" class=" text-sm text-colorVerde hover:bg-slate-500 hover:text-slate-800">
-                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);" class="px-3 py-2 ">{{ pessoa.nome }}</td>
-                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.sobrenome }}</td>
-                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.dataNascimento }}</td>
-                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.endereco }}</td>
-                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);"class="px-3 py-2">{{ pessoa.informacoesCargo.descricao }}</td>
-                    <td style="border: 1px solid  rgba(32, 31, 68, 0.397);" class="px-3 py-2">
-                        <button type="button"style="border: 2px solid  rgba(32, 31, 68, 0.397) " class="btn btn-sm font-bold  btn-outline-info mr-2 bg-slate-900 text-violet-50 hover:bg-gray-800" (click)="ExibirFormularioAtualizacao(pessoa.id)">Atualizar</button>
-                        <button type="button" style="border: 2px solid  rgba(32, 31, 68, 0.397) " class="btn btn-sm btn-outline-danger font-bold  bg-slate-900 text-colorVermelho hover:bg-colorVermelho" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">Excluir</button>
+            <tbody>
+                <tr *ngFor="let pessoa of pessoas" class="hover:bg-gray-100 transition-colors duration-300 ">
+                    <td class="px-4 py-2 border-gray-300">{{ pessoa.nome }}</td>
+                    <td class="px-4 py-2 border-gray-300">{{ pessoa.sobrenome }}</td>
+                    <td class="px-4 py-2 border-gray-300">{{ pessoa.dataNascimento }}</td>
+                    <td class="px-4 py-2 border-gray-300">{{ pessoa.endereco }}</td>
+                    <td class="px-4 py-2 border-gray-300">{{ pessoa.informacoesCargo.descricao }}</td>
+                    <td class="px-4 py-2 border-gray-300 flex ">
+                        <button type="button" class="btn-sm font-semibold bg-slate-900 text-violet-50 hover:bg-slate-700 hover:text-white border border-slate-700 rounded-md px-3 py-1 transition duration-300 flex" (click)="ExibirFormularioAtualizacao(pessoa.id)">
+                            <lucide-icon name="pencil-line" class="w-4"></lucide-icon> Atualizar
+                        </button>
+                        <button type="button" class=" btn-smfont-semibold bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-md px-3 py-1 transition duration-300 ml-2 flex" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">
+                            <lucide-icon name="square-x" class="w-4 "></lucide-icon> Excluir
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-</div>
-<div class="container mt-3 mb-3" *ngIf="visibilidadeFormulario">
-    <div class="row">
-        <div class="col-lg-6 col-md-8 col-sm-10 border border-light rounded p-4 shadow">
-            <h5 class="text-secondary mb-4">{{ tituloFormulario }}</h5>
+</section>
+
+<div class="mt-3 mb-3" *ngIf="visibilidadeFormulario">
+    <div class="row justify-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 bg-gray-200 rounded-md p-6 shadow-lg">
+            <h5 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba pb-2 mb-4">{{ tituloFormulario }}</h5>
             <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input type="text" class="form-control" formControlName="nome"/>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Nome</label>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="nome"/>
                 </div>
-                <div class="form-group">
-                    <label>Sobrenome</label>
-                    <input type="text" class="form-control" formControlName="sobrenome"/>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Sobrenome</label>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="sobrenome"/>
                 </div>
-                <div class="form-group">
-                    <label>Data de Nascimento</label>
-                    <input type="date" class="form-control" formControlName="dataNascimento"/>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Data de Nascimento</label>
+                    <input type="date" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="dataNascimento"/>
                 </div>
-                <div class="form-group">
-                    <label>Endereço</label>
-                    <input type="text" class="form-control" formControlName="endereco"/>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Endereço</label>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="endereco"/>
                 </div>
-                <div class="form-group">
-                    <label>Cargo</label>
-                    <select class="form-control" formControlName="informacoesCargo">
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Cargo</label>
+                    <select class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="informacoesCargo">
                         <option *ngFor="let cargo of listaCargos" [ngValue]="cargo">{{ cargo.descricao }}</option>
                     </select>
                 </div>
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-outline-secondary mr-2">Salvar</button>
-                    <button type="button" class="btn btn-light" (click)="Voltar()">Voltar</button>
+                <div class="form-group mt-4 flex justify-between">
+                    <button type="submit" class="bg-colorGoiaba text-white hover:bg-slate-900 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105">Salvar</button>
+                    <button type="button" class="bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out flex" (click)="Voltar()">
+                        <lucide-icon name="undo-2"></lucide-icon>Voltar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 <ng-template #conteudoModal>
     <div class="modal-header">

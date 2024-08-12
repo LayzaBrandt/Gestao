@@ -8,6 +8,7 @@ module.exports = {
         colorVermelho: '#d02941',
         colorGoiaba:   '#f57e67',
         colorBege:     '#d9c9a5',
+        colorAzulClaro: 'hsl(222, 29%, 66%)',
         colorVerde:    '#8cab94',
         colorAzul:     '#48586f'
       },

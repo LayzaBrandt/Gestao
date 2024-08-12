@@ -26,6 +26,7 @@ import { DocumentoService } from './documento.service';
 import { TabComponent } from './tab/tab.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule} from '@angular/material/menu';
+import { LucideAngularModule, Menu, CircleHelp,CircleUser, CirclePlus, PencilLine, SquareX, Undo, Undo2, } from 'lucide-angular';
 
 @NgModule({
   declarations: [		
@@ -33,7 +34,7 @@ import { MatMenuModule} from '@angular/material/menu';
     PessoaComponent,
     CargoComponent,
     DocumentoComponent,
-    TabComponent
+    TabComponent,
    ],
   imports: [
     BrowserModule,
@@ -53,6 +54,7 @@ import { MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
+    LucideAngularModule.pick({ CircleHelp, Menu, CircleUser,CirclePlus,PencilLine,SquareX,Undo2 }),
     ModalModule.forRoot()
   ],
   providers: [HttpClientModule,TabService, PessoaService, CargoService, DocumentoService],

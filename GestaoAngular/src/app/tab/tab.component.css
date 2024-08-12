@@ -69,3 +69,52 @@ header {
 .bg-slate-900 {
     background-color: #0f172a; /* Slate 900 */
 }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .search-container {
+            background-color: #fff;
+            padding: 3px 20px;
+            margin: 10px;
+            justify-content: center;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .search-container input[type="search"] {
+            border: none;
+            outline: none;
+            padding: 10px;
+            width: 250px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+
+        .search-container input[type="search"]::placeholder {
+            color: #999;
+        }
+
+        .search-container button {
+            background-color: #0f172a;
+            color: #fff;
+            border: none;
+            padding: 3px 20px;
+            margin-left: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background-color: #f57e67;
+        }

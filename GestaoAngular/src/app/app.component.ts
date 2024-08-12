@@ -15,4 +15,5 @@ export class AppComponent implements OnInit {
     // Define a aba inicial
     this.tabService.setCurrentPage('home');
   }
+  
 }

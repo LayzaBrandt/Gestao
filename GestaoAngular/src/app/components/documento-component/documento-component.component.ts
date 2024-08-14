@@ -1,11 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { DocumentoService } from '../documento.service'; // Certifique-se de importar o serviço de documento apropriado
-import { MotivoDesligamento } from '../MotivoDesligamento';
-import { Documento } from '../Documento';
-import { Pessoa } from '../Pessoa';
-import { PessoaService } from '../pessoa.service';
+import { DocumentoService } from '../../documento.service'; // Certifique-se de importar o serviço de documento apropriado
+import { MotivoDesligamento } from '../../MotivoDesligamento';
+import { Documento } from '../../Documento';
+import { Pessoa } from '../../Pessoa';
+import { PessoaService } from '../../pessoa.service';
 
 @Component({
   selector: 'app-documento-component',

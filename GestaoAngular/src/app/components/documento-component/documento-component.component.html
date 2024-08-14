@@ -1,0 +1,105 @@
+<div class="h-full" *ngIf="visibilidadeTabela">
+    <div class="bg-gray-200 rounded-md">
+        <div class="flex justify-content-between align-items-center mb-3">
+            <h1 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba">Lista de Documentos</h1>
+            <button type="button" class="bg-gray-800 text-colorGoiaba hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105" (click)="ExibirFormularioCadastro()">
+                <lucide-icon name="circle-plus"></lucide-icon>
+            </button>
+        </div>
+        <hr>
+        <table class="rounded-lg overflow-hidden bg-white flex-auto justify-between" *ngIf="documentos && documentos.length">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="px-3 text-left">Funcionário</th>
+                    <th class="px-3 text-left">Empresa</th>
+                    <th class="px-3 text-left">Endereço empresa</th>
+                    <th class="px-3 text-left">Data de emissão</th>
+                    <th class="px-3 text-left">Data efetiva de desligamento</th>
+                    <th class="px-3 text-left">Motivo de desligamento</th>
+                    <th class="px-3 text-left">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let documento of documentos" class="hover:bg-gray-100 transition-colors duration-300 flex-auto justify-between">
+                    <td class="px-3 border-gray-300 ">{{ documento?.idPessoa?.nome }}</td>
+                    <td class="px-3 border-gray-300 ">{{ documento?.empresa }}</td>
+                    <td class="px-3 border-gray-300 ">{{ documento?.enderecoEmpresa }}</td>
+                    <td class="px-3 border-gray-300 ">{{ documento?.dataEmissao }}</td>
+                    <td class="px-3 border-gray-300 ">{{ documento?.dataEfetivaDesligamento }}</td>
+                    <td class="px-3 border-gray-300 ">{{ getDescricaoDocumento(documento.idMotivoDesligamento) }}</td>
+                   <td class="p-2 border-gray-300 flex ">
+                        <button type="button" class="btn-sm font-semibold bg-slate-900 text-violet-50 hover:bg-slate-700 hover:text-white border border-slate-700 rounded-md transition duration-300 flex" (click)="ExibirFormularioAtualizacao(documento.id)">
+                            <lucide-icon name="pencil-line" class="w-4"></lucide-icon> Atualizar
+                        </button>
+                        <button type="button" class=" btn-sm font-semibold bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-md transition duration-300 flex px-2 py-1" (click)="ExibirConfirmacaoExclusao(documento.id, documento.empresa, conteudoModal)">
+                            <lucide-icon name="square-x" class="w-4 "></lucide-icon> Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" *ngIf="!documentos || !documentos.length">
+            <p>Nenhum documento encontrado.</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 mb-3" *ngIf="visibilidadeFormulario">
+    <div class="row justify-center flex">
+        <div class="col-lg-6 col-md-8 col-sm-10 bg-gray-200 rounded-md p-6 shadow-lg" *ngIf="formulario">
+            <h5 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba pb-2 mb-4">{{ tituloFormularioDocumento }}</h5>
+            <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Funcionário</label>
+                    <select class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="idPessoa">
+                        <option *ngFor="let pessoa of listaPessoa" [ngValue]="pessoa">{{ pessoa.nome }}</option>
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Empresa</label>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="empresa"/>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Endereço Empresa</label>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="enderecoEmpresa"/>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Data de Emissão</label>
+                    <input type="date" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="dataEmissao"/>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Data Efetiva de Desligamento</label>
+                    <input type="date" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="dataEfetivaDesligamento"/>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="block text-gray-700">Motivo de Desligamento</label>
+                    <select class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="idMotivoDesligamento">
+                        <option *ngFor="let motivo of enumKeys" [ngValue]="motivosDesligamento[motivo]">{{ motivo }}</option>
+                    </select>
+                </div>
+                <div class="form-group mt-4 flex justify-between">
+                    <button type="submit" class="bg-colorGoiaba text-white hover:bg-slate-900 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105">Salvar</button>
+                    <button type="button" class="bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out flex" (click)="Voltar()">
+                        <lucide-icon name="undo-2"></lucide-icon>Voltar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #conteudoModal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirmação de exclusão</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Prosseguir com a exclusão do Documento?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="ExcluirDocumento(documentoId)">Excluir</button>
+    </div>
+</ng-template>

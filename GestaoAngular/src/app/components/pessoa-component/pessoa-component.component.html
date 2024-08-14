@@ -1,7 +1,7 @@
-<section class="h-full w-full"  *ngIf="visibilidadeTabela">
-    <div class="bg-gray-200 rounded-md p-6">
-        <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba pb-2">
+<section class="h-full"  *ngIf="visibilidadeTabela">
+    <div class="bg-gray-200 rounded-md">
+        <div class="flex justify-between ">
+            <h1 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba">
                 Lista de Pessoas Cadastradas
             </h1>
             <button type="button" class="bg-gray-800 text-colorGoiaba hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105" (click)="ExibirFormularioCadastro()">
@@ -10,30 +10,29 @@
         </div>
         
         <hr />
-        <hr class="my-2">
-        <table class="w-full rounded-lg overflow-hidden shadow-lg bg-white">
-            <thead class="bg-gray-800 text-white">
+        <table class="rounded-lg overflow-hidden shadow-lg bg-white flex-auto justify-between ">
+            <thead class="bg-gray-800 text-white ">
                 <tr>
-                    <th class="px-4 py-2 text-left">Nome</th>
-                    <th class="px-4 py-2 text-left">Sobrenome</th>
-                    <th class="px-4 py-2 text-left">Data de Nascimento</th>
-                    <th class="px-4 py-2 text-left">Endereço</th>
-                    <th class="px-4 py-2 text-left">Cargo</th>
-                    <th class="px-4 py-2 text-left">Ações</th>
+                    <th class="px-3 text-left">Nome</th>
+                    <th class="px-3 text-left">Sobrenome</th>
+                    <th class="px-3 text-left">Data de Nascimento</th>
+                    <th class="px-3 text-left">Endereço</th>
+                    <th class="px-3 text-left">Cargo</th>
+                    <th class="px-3 text-left">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pessoa of pessoas" class="hover:bg-gray-100 transition-colors duration-300 ">
-                    <td class="px-4 py-2 border-gray-300">{{ pessoa.nome }}</td>
-                    <td class="px-4 py-2 border-gray-300">{{ pessoa.sobrenome }}</td>
-                    <td class="px-4 py-2 border-gray-300">{{ pessoa.dataNascimento }}</td>
-                    <td class="px-4 py-2 border-gray-300">{{ pessoa.endereco }}</td>
-                    <td class="px-4 py-2 border-gray-300">{{ pessoa.informacoesCargo.descricao }}</td>
-                    <td class="px-4 py-2 border-gray-300 flex ">
-                        <button type="button" class="btn-sm font-semibold bg-slate-900 text-violet-50 hover:bg-slate-700 hover:text-white border border-slate-700 rounded-md px-3 py-1 transition duration-300 flex" (click)="ExibirFormularioAtualizacao(pessoa.id)">
+                <tr *ngFor="let pessoa of pessoas" class="hover:bg-gray-100 transition-colors duration-300 flex-auto justify-between">
+                    <td class="px-3 border-gray-300 ">{{ pessoa.nome }}</td>
+                    <td class="px-3 border-gray-300">{{ pessoa.sobrenome }}</td>
+                    <td class="px-3 border-gray-300">{{ pessoa.dataNascimento }}</td>
+                    <td class="px-3 border-gray-300">{{ pessoa.endereco }}</td>
+                    <td class="px-3 border-gray-300">{{ pessoa.informacoesCargo.descricao }}</td>
+                    <td class="p-2 border-gray-300 flex ">
+                        <button type="button" class="btn-sm font-semibold bg-slate-900 text-violet-50 hover:bg-slate-700 hover:text-white border border-slate-700 rounded-md transition duration-300 flex" (click)="ExibirFormularioAtualizacao(pessoa.id)">
                             <lucide-icon name="pencil-line" class="w-4"></lucide-icon> Atualizar
                         </button>
-                        <button type="button" class=" btn-smfont-semibold bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-md px-3 py-1 transition duration-300 ml-2 flex" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">
+                        <button type="button" class=" btn-sm font-semibold bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-md transition duration-300 flex px-2 py-1" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">
                             <lucide-icon name="square-x" class="w-4 "></lucide-icon> Excluir
                         </button>
                     </td>
@@ -44,7 +43,7 @@
 </section>
 
 <div class="mt-3 mb-3" *ngIf="visibilidadeFormulario">
-    <div class="row justify-center">
+    <div class="row justify-center flex">
         <div class="col-lg-6 col-md-8 col-sm-10 bg-gray-200 rounded-md p-6 shadow-lg">
             <h5 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba pb-2 mb-4">{{ tituloFormulario }}</h5>
             <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">

@@ -2,4 +2,38 @@
 @tailwind components;
 @tailwind utilities; */
 
+html, body {
+    height: 100%;
+    box-shadow: 0 4px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    background-color: #e5e7eb;
+}
+header{
+    background-color: #e5e7eb;
+    min-width: 100vh;
 
+}
+aside {
+    flex: 1;
+    background-color: #f3f4f6;
+    padding: 30px;
+    margin: 10px;
+    min-height: 83.5vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#conteudo {
+    min-height: 85.5vh;
+    min-width: 100vh;
+}
+main {
+    flex: 12;
+    height: 100%;
+    padding: 1%;
+}
+footer {
+    background-color: #0f172a;
+    color: #f3f4f6;           
+    text-align: center;
+    padding: 1rem;
+    min-width: 100vh;
+}

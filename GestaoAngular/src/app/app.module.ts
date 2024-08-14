@@ -19,22 +19,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CargoComponent } from './cargo-component/cargo-component.component';
+import { CargoComponent } from './components/cargo-component/cargo-component.component';
 import { TabService } from './tab.service'; // Importe o serviço
-import { DocumentoComponent } from './documento-component/documento-component.component';
+import { DocumentoComponent } from './components/documento-component/documento-component.component';
 import { DocumentoService } from './documento.service';
 import { TabComponent } from './tab/tab.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule} from '@angular/material/menu';
 import { LucideAngularModule, Menu, CircleHelp,CircleUser, CirclePlus, PencilLine, SquareX, Undo, Undo2, } from 'lucide-angular';
+import { MenuComponent } from './components/menu-component/Menu.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     PessoaComponent,
     CargoComponent,
     DocumentoComponent,
     TabComponent,
+      MenuComponent
    ],
   imports: [
     BrowserModule,

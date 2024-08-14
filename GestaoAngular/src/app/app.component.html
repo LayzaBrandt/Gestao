@@ -4,61 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            box-shadow: 0 4px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            padding: 0;
-            background-color: #e5e7eb;
-        }
-
-        header{
-            background-color: #e5e7eb;
-        }
-
-        #conteudo {
-            min-height: 76.5vh;
-            display: flex;
- 
-
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        main {
-            flex: 1;
-            height: 100%;
-            width: 100%;
-        }
-
-        footer {
-            background-color: #0f172a; /* Cor de fundo (Slate 800) */
-            color: #f3f4f6;           /* Cor do texto (Slate 200) */
-            text-align: center;
-            padding: 1rem;
-            position: relative;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
 </head>
 <header>
     <div>
-        <app-tab></app-tab> <!-- Adicionando o componente TabComponent -->
+        <app-tab></app-tab>
     </div>
-    
 </header>
-<aside class="bg-black">
-    Teste
-</aside>
-<body id="conteudo" >
-
- 
-    <main>
-        <router-outlet></router-outlet>
-    </main>
-
+<body id="conteudo">
+    <div class="flex">
+         <aside>
+            
+        </aside> 
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 </body>
 <footer>
     &copy; 2024 - GesTeste. Todos os direitos reservados.

@@ -29,6 +29,7 @@ export class PessoaComponent implements OnInit {
   constructor(private pessoaService: PessoaService,
     private cargoService: CargoService,
     private modalService: BsModalService) { }
+    
 
   ngOnInit(): void {
     this.pessoaService.GetPessoas().subscribe(resultado => {

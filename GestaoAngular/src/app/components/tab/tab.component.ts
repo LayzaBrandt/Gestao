@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TabService } from '../tab.service';
+import { TabService } from '../../tab.service';
 import { Router } from '@angular/router';
 
 @Component({

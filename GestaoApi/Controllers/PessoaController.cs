@@ -57,7 +57,7 @@ namespace GestaoApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> ExcluirPessoaAsync(int id){
             var pessoa = await _pessoaRepository.SelecionarByPK(id);
-
+            
             if(pessoa == null){
                 return NotFound();
             }

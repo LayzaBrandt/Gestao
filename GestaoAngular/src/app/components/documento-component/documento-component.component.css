@@ -8,10 +8,10 @@
 }
 
 .thead-custom {
-    background-color: #1f2937; /* Slate 800 */
-    color: #f3f4f6; /* Slate 200 */
+    background-color: #1f2937;
+    color: #f3f4f6; 
     padding: 10px;
-    border-bottom: 2px solid #e5e7eb; /* Slate 100 */
+    border-bottom: 2px solid #e5e7eb; 
     text-align: left;
 }
 
@@ -22,13 +22,13 @@
 
 .btn-outline-danger {
     border: 2px solid rgba(220, 38, 38, 0.5);
-    color: #ef4444; /* Vermelho (Tailwind Red 500) */
+    color: #ef4444;
     background-color: transparent;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .btn-outline-danger:hover {
-    background-color: #ef4444; /* Vermelho (Tailwind Red 500) */
+    background-color: #ef4444;
     color: #ffffff;
 }
 
@@ -59,7 +59,7 @@ table td {
 hr {
     border: 0;
     height: 1px;
-    background-color: #e5e7eb; /* Slate 100 */
+    background-color: #e5e7eb;
 }
 
 .form-group {
@@ -72,6 +72,6 @@ button {
 }
 
 button:hover {
-    background-color: #1f2937; /* Slate 800 */
-    color: #f3f4f6; /* Slate 200 */
+    background-color: #1f2937;
+    color: #f3f4f6; 
 }

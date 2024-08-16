@@ -26,7 +26,7 @@ import { DocumentoService } from './documento.service';
 import { TabComponent } from './components/tab/tab.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule} from '@angular/material/menu';
-import { LucideAngularModule, Menu, CircleHelp,CircleUser, CirclePlus, PencilLine, MousePointerIcon, SquareX, Undo, Undo2, FileChartColumn, MousePointerClick } from 'lucide-angular';
+import { LucideAngularModule, Menu, CircleHelp,CircleUser, CirclePlus, PencilLine, MousePointerIcon, SquareX, Undo, Undo2, FileChartColumn, MousePointerClick,CircleDollarSign  } from 'lucide-angular';
 import { MenuComponent } from './components/menu-component/Menu.component';
 
 @NgModule({
@@ -56,7 +56,7 @@ import { MenuComponent } from './components/menu-component/Menu.component';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
-    LucideAngularModule.pick({ CircleHelp, Menu, CircleUser,CirclePlus,PencilLine,SquareX,Undo2,MousePointerIcon, FileChartColumn, MousePointerClick  }),
+    LucideAngularModule.pick({ CircleHelp, Menu, CircleUser,CirclePlus,PencilLine,SquareX,Undo2,MousePointerIcon, FileChartColumn, MousePointerClick,CircleDollarSign   }),
     ModalModule.forRoot()
   ],
   providers: [HttpClientModule,TabService, PessoaService, CargoService, DocumentoService],

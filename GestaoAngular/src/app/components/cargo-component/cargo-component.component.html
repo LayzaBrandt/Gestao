@@ -1,73 +1,80 @@
-<div class="container mt-5 mb-5">
-    <div class="border border-light rounded p-4" *ngIf="visibilidadeTabela">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="text-secondary m-0">Lista de Cargos</h5>
-            <button type="button" class="btn btn-sm btn-secondary" (click)="ExibirFormularioCadastro()">Novo Cargo</button>
+<section class="h-full w-full " *ngIf="visibilidadeTabela">
+    <div class=" rounded-lg p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba ">Lista de Cargos</h1>
+            <button type="button" class="bg-gray-800 text-colorGoiaba hover:bg-gray-700 hover:text-white rounded-lg px-5 py-3 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105" (click)="ExibirFormularioCadastro()">
+                <lucide-icon name="circle-plus"></lucide-icon>
+            </button>
         </div>
-        <hr>
-        <table class="table table-striped table-hover table-sm" *ngIf="cargos && cargos.length">
-            <thead class="thead-light">
+        <table class="w-full rounded-lg overflow-hidden shadow-lg bg-gray-100 ">
+            <thead class="bg-gray-800 text-white ">
                 <tr>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Data de entrada</th>
-                    <th>Data de saída</th>
-                    <th>Setor</th>
-                    <th>Ações</th>
+                    <th class="px-6 py-3 text-left">Descrição</th>
+                    <th class="px-6 py-3 text-left">Valor</th>
+                    <th class="px-6 py-3 text-left">Data de entrada</th>
+                    <th class="px-6 py-3 text-left">Data de saída</th>
+                    <th class="px-6 py-3 text-left">Setor</th>
+                    <th class="px-6 py-3 text-left">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cargo of cargos">
-                    <td>{{ cargo.descricao }}</td>
-                    <td>{{ cargo.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
-                    <td>{{ cargo.dataEntrada }}</td>
-                    <td>{{ cargo.dataSaida }}</td>
-                    <td>{{ getDescricaoSetor(cargo.informacoesSetor) }}</td>
-                    <td>
-                        <button type="button" class="btn btn-sm btn-outline-info mr-2" (click)="ExibirFormularioAtualizacao(cargo.id)">Atualizar</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="ExibirConfirmacaoExclusao(cargo.id, cargo.descricao, conteudoModal)">Excluir</button>
+                <tr *ngFor="let cargo of cargos" class="hover:bg-gray-200 transition-colors duration-300flex">
+                    <td class="px-6 py-4 border-t border-gray-300">{{ cargo.descricao }}</td>
+                    <td class="px-6 py-4 border-t border-gray-300">{{ cargo.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+                    <td class="px-6 py-4 border-t border-gray-300">{{ cargo.dataEntrada }}</td>
+                    <td class="px-6 py-4 border-t border-gray-300">{{ cargo.dataSaida }}</td>
+                    <td class="px-6 py-4 border-t border-gray-300">{{ getDescricaoSetor(cargo.informacoesSetor) }}</td>
+                    <td class="px-6 py-4 border-t border-gray-300 flex space-x-2">
+                        <button type="button" class="flex items-center bg-slate-900 text-violet-50 hover:bg-slate-700 hover:text-white border border-slate-700 rounded-lg px-3 py-2 transition duration-300" (click)="ExibirFormularioAtualizacao(cargo.id)">
+                            <lucide-icon name="pencil-line" class="w-4 mr-2"></lucide-icon> Atualizar
+                        </button>
+                        <button type="button" class="flex items-center bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-lg px-3 py-2 transition duration-300" (click)="ExibirConfirmacaoExclusao(cargo.id, cargo.descricao, conteudoModal)">
+                            <lucide-icon name="square-x" class="w-4 mr-2"></lucide-icon> Excluir
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-</div>
+</section>
 
-<div class="container p-5" *ngIf="visibilidadeFormulario">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-sm-10 border border-light rounded p-4 shadow" *ngIf="formulario">
-            <h6 class="text-secondary mb-4">{{ tituloFormularioCargo }}</h6>
+<div class="mt-6 mb-6" *ngIf="visibilidadeFormulario">
+    <div class="flex justify-center">
+        <div class="w-full max-w-2xl bg-gray-200 rounded-lg p-8 shadow-lg">
+            <h5 class="text-3xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba pb-3 mb-6">{{ tituloFormularioCargo }}</h5>
             <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
-                <div class="form-group">
-                    <label>Nome do Cargo</label>
-                    <input type="text" class="form-control" formControlName="descricao"/>
+                <div class="form-group mb-6">
+                    <label class="block text-lg text-gray-700">Nome do Cargo</label>
+                    <input type="text" class="form-control mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="descricao"/>
                 </div>
-                <div class="form-group">
-                    <label>Setor</label>
-                    <select class="form-control" formControlName="informacoesSetor">
+                <div class="form-group mb-6">
+                    <label class="block text-lg text-gray-700">Setor</label>
+                    <select class="form-control mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="informacoesSetor">
                         <option *ngFor="let setor of enumKeys" [ngValue]="setoresEmpresa[setor]">{{ setor }}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Valor</label>
-                    <div class="input-group">
+                <div class="form-group mb-6">
+                    <label class="block text-lg text-gray-700">Valor</label>
+                    <div class="input-group mt-2">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">R$</span>
+                            <span class="input-group-text bg-gray-200 px-4 py-3">R$</span>
                         </div>
-                        <input type="text" class="form-control" formControlName="valor" placeholder="0.00">
+                        <input type="text" class="form-control px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="valor" placeholder="0.00">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Data de Entrada</label>
-                    <input type="date" class="form-control" formControlName="dataEntrada"/>
+                <div class="form-group mb-6">
+                    <label class="block text-lg text-gray-700">Data de Entrada</label>
+                    <input type="date" class="form-control mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="dataEntrada"/>
                 </div>
-                <div class="form-group">
-                    <label>Data de Saída</label>
-                    <input type="date" class="form-control" formControlName="dataSaida"/>
+                <div class="form-group mb-6">
+                    <label class="block text-lg text-gray-700">Data de Saída</label>
+                    <input type="date" class="form-control mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="dataSaida"/>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-secondary mr-2">Salvar</button>
-                    <button type="button" class="btn btn-light" (click)="Voltar()">Voltar</button>
+                <div class="flex justify-between mt-6">
+                    <button type="submit" class="bg-colorGoiaba text-white hover:bg-slate-900 hover:text-white rounded-lg px-5 py-3 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105">Salvar</button>
+                    <button type="button" class="flex items-center bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-white rounded-lg px-5 py-3 font-semibold shadow-md transition duration-300 ease-in-out" (click)="Voltar()">
+                        <lucide-icon name="undo-2" class="w-4 mr-2"></lucide-icon> Voltar
+                    </button>
                 </div>
             </form>
         </div>
@@ -85,7 +92,7 @@
         <p>Prosseguir com a exclusão do {{ nomeCargo }}?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
-        <button type="button" class="btn btn-danger" (click)="ExcluirCargo(cargoId)">Excluir</button>
+        <button type="button" class="bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-white rounded-lg px-5 py-3 font-semibold shadow-md transition duration-300 ease-in-out" (click)="modalRef.hide()">Cancelar</button>
+        <button type="button" class="bg-red-500 text-white hover:bg-red-700 hover:text-white rounded-lg px-5 py-3 font-semibold shadow-md transition duration-300 ease-in-out" (click)="ExcluirCargo(cargoId)">Excluir</button>
     </div>
 </ng-template>

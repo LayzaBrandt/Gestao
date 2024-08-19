@@ -9,9 +9,9 @@
 
 .thead-custom {
     background-color: #1f2937;
-    color: #f3f4f6; 
+    color: #f3f4f6;
     padding: 10px;
-    border-bottom: 2px solid #e5e7eb; 
+    border-bottom: 2px solid #e5e7eb;
     text-align: left;
 }
 
@@ -19,6 +19,7 @@
     border: 1px solid rgba(32, 31, 68, 0.3);
     padding: 10px;
 }
+
 
 .btn-outline-danger {
     border: 2px solid rgba(220, 38, 38, 0.5);
@@ -28,12 +29,12 @@
 }
 
 .btn-outline-danger:hover {
-    background-color: #ef4444;
+    background-color: #ef4444; 
     color: #ffffff;
 }
 
 .container {
-    background-color: #e5e7eb;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -48,18 +49,15 @@ table {
 table th {
     text-align: left;
     height: 50px;
-    padding: 10px;
 }
-
 table td {
     text-align: left;
-    padding: 10px;
 }
 
 hr {
     border: 0;
     height: 1px;
-    background-color: #e5e7eb;
+    background-color: #e5e7eb; 
 }
 
 .form-group {
@@ -68,10 +66,4 @@ hr {
 
 button {
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-button:hover {
-    background-color: #1f2937;
-    color: #f3f4f6; 
 }

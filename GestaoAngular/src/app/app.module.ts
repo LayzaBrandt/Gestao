@@ -20,14 +20,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CargoComponent } from './components/cargo-component/cargo-component.component';
-import { TabService } from './tab.service'; // Importe o serviço
+import { TabService } from './tab.service'; 
 import { DocumentoComponent } from './components/documento-component/documento-component.component';
 import { DocumentoService } from './documento.service';
+import { DuvidasComponent } from './components/ajuda/duvidas.component';
 import { TabComponent } from './components/tab/tab.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule} from '@angular/material/menu';
-import { LucideAngularModule, Menu, CircleHelp,CircleUser, CirclePlus, PencilLine, MousePointerIcon, SquareX, Undo, Undo2, FileChartColumn, MousePointerClick,CircleDollarSign  } from 'lucide-angular';
+import { LucideAngularModule, Menu, CircleHelp,CircleUser, CirclePlus, PencilLine, MousePointerIcon, SquareX, Undo, Undo2, FileChartColumn, MousePointerClick,CircleDollarSign, Search  } from 'lucide-angular';
 import { MenuComponent } from './components/menu-component/Menu.component';
+import { DuvidasService } from './duvidas.service';
+import { SearchService } from './search.service';
 
 @NgModule({
   declarations: [			
@@ -35,6 +38,7 @@ import { MenuComponent } from './components/menu-component/Menu.component';
     PessoaComponent,
     CargoComponent,
     DocumentoComponent,
+    DuvidasComponent,
     TabComponent,
       MenuComponent
    ],
@@ -59,7 +63,7 @@ import { MenuComponent } from './components/menu-component/Menu.component';
     LucideAngularModule.pick({ CircleHelp, Menu, CircleUser,CirclePlus,PencilLine,SquareX,Undo2,MousePointerIcon, FileChartColumn, MousePointerClick,CircleDollarSign   }),
     ModalModule.forRoot()
   ],
-  providers: [HttpClientModule,TabService, PessoaService, CargoService, DocumentoService],
+  providers: [HttpClientModule ,DuvidasService ,TabService, PessoaService, CargoService, DocumentoService,SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

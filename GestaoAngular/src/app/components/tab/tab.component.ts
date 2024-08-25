@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TabService } from '../../tab.service';
 import { Router } from '@angular/router';
-
+import { SearchService } from '../../search.service';
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.component.html',
@@ -9,34 +8,28 @@ import { Router } from '@angular/router';
 })
 export class TabComponent implements OnInit {
   isOpen = false;
+  searchTerm: string = '';
+  currentPage: string = 'home';
+
+  constructor(
+    private searchService: SearchService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {}
 
   toggle() {
     this.isOpen = !this.isOpen;
   }
 
-
-  currentPage: string = 'home';
-
-  constructor(
-    private tabService: TabService
-    ,private router: Router) { }
-
-  ngOnInit(): void {
-    this.tabService.currentPage.subscribe(page => {
-      this.currentPage = page;
-    });
-  }
-
   openPage(page: string) {
-    
-  // this.tabService.setCurrentPage(page);
     let url: string;
     switch (page) {
       case 'home':
         url = '/';
         break;
-      case 'documentos':
-        url = '/documento';
+      case 'duvidas':
+        url = '/duvidas';
         break;
       case 'pessoa':
         url = '/pessoa';
@@ -49,10 +42,9 @@ export class TabComponent implements OnInit {
     }
     this.router.navigate([url]);
   }
-  //toggleDropdown() {
-  //this.dropdownOpen = !this.dropdownOpen;
-  //}
 
+  onSearch() {
+    this.searchService.setSearchTerm(this.searchTerm);
+    this.router.navigate(['/duvidas']); // Navegar para a página de dúvidas
+  }
 }
-
-

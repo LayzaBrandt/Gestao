@@ -3,14 +3,15 @@
     <img src="../../assets/img/Gesteste (140 x 80 px).png" alt="Logo">
     <div class="flex justify-end items-end">
     <div class="search-container">
-        <input type="search" id="search" name="query" placeholder="Digite sua pesquisa">
-        <button type="submit">Pesquisar</button>
+        <input type="search" id="search" name="query" placeholder="Digite sua pesquisa"  [(ngModel)]="searchTerm">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2"
+        (click)="onSearch()">Pesquisar</button>
     </div>
     <div class="flex p-3 bg-gray-200">
         <button class="bg-colorGoiaba text-white flex m-1 px-2 py-1 rounded-lg shadow-md hover:bg-slate-900 transition duration-800  " >
             <lucide-icon name="circle-user" class="w-6 flex-auto justify-center h-6"></lucide-icon>
         </button>
-        <button class="bg-colorGoiaba text-white m-1 px-2 py-1 rounded-lg shadow-md hover:bg-slate-900 transition duration-800 flex items-center" >
+        <button class="bg-colorGoiaba text-white m-1 px-2 py-1 rounded-lg shadow-md hover:bg-slate-900 transition duration-800 flex items-center" (click)="openPage('duvidas')">
             <lucide-icon name="circle-help" class="w-6 h-6 mr-1"></lucide-icon> Dúvidas
         </button>
     </div>

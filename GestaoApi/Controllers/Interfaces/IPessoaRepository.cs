@@ -6,14 +6,14 @@ namespace GestaoApi.Controllers.Interfaces
 {
     public interface IPessoaRepository
     {
-        void AddPessoa(Pessoa pessoa);
+        void AddPessoa(PessoaDto pessoa, List<long> cargosIds);
 
-        void UpdatePessoa(Pessoa pessoa, List<long> novosCargosIds);
+        void UpdatePessoa(PessoaDto pessoa, List<long> novosCargosIds);
 
         void RemovePessoa(long id);
 
-        Task<Pessoa> SelecionarByPK(long id);
+        Task<PessoaDto> SelecionarByPK(long id);
 
-        Task<IEnumerable<Pessoa>> SelecionaTodos();
+        Task<IEnumerable<PessoaDto>> SelecionaTodos();
     }
 }

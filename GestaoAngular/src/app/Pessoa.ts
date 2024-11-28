@@ -4,10 +4,12 @@ export class Pessoa {
     id!: number;
     nome!: string;
     sobrenome!: string;
-    cargos?: Cargo[];
+    idPessoaXCargos?: PessoaXCargo[];
 }
 
 export interface PessoaXCargo {
     idPessoa: number;
     idCargo: number;
+    descricaoCargo: string;
+    cargos: Cargo;
 }

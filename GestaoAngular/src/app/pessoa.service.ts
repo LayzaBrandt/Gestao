@@ -26,15 +26,15 @@ export class PessoaService {
     return this.http.get<Pessoa>(apiUrl);
   }
 
-  SalvarPessoa(pessoa: Pessoa): Observable<any>{
-    return this.http.post<Pessoa>(this.url, pessoa, httpOptions)
-  }
-
-  AtualizarPessoa(pessoa: Pessoa, cargosIds: number[]): Observable<Pessoa> {
-    const body = { pessoa, cargosIds };
-    return this.http.put<Pessoa>(this.url, body, httpOptions);
+  SalvarPessoa(pessoa: Pessoa, cargosIds: number[]): Observable<any> {
+    const body = { pessoa, cargosIds }; 
+    return this.http.post<Pessoa>(this.url, body, httpOptions); 
 }
 
+    AtualizarPessoa(pessoa: Pessoa, cargosIds: number[]): Observable<Pessoa> {
+      const body = { pessoa, cargosIds };
+      return this.http.put<Pessoa>(this.url, body, httpOptions);
+  }
 
   ExcluirPessoa(pessoaId : number) : Observable<any>{
     const apiUrl = `${this.url}/${pessoaId}`;

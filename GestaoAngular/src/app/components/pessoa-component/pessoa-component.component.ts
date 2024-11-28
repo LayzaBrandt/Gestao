@@ -32,13 +32,18 @@ export class PessoaComponent implements OnInit {
     this.formulario = this.fb.group({
       id: [0],
       nome: [''],
-      sobrenome: ['']
+      sobrenome: [''],
+      idPessoaXCargos: this.fb.array([]),
     });
+    
   }
+
 
   ngOnInit(): void {
     this.pessoaService.GetPessoas().subscribe((resultado) => {
+      console.log(resultado);
       this.pessoas = resultado;
+      console.log(this.pessoas);
     });
     this.cargoService.GetCargos().subscribe((resultado) => {
       this.listaCargos = resultado;
@@ -52,7 +57,7 @@ export class PessoaComponent implements OnInit {
     this.formulario = new FormGroup({
       nome: new FormControl(null),
       sobrenome: new FormControl(null),
-      cargos: new FormArray([]), // Inicializa o FormArray para cargos
+      idPessoaXCargos: new FormArray([]), 
     });
   }
 
@@ -60,32 +65,35 @@ export class PessoaComponent implements OnInit {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
     this.pessoaService.GetPessoa(id).subscribe((resultado) => {
-      this.tituloFormulario = `Atualizar ${resultado.nome} ${resultado.sobrenome}`;
-      this.formulario = new FormGroup({
-        id: new FormControl(resultado.id),
-        nome: new FormControl(resultado.nome),
-        sobrenome: new FormControl(resultado.sobrenome),
-        cargos: new FormArray([]),
-      });
-
-      if (resultado.cargos && resultado.cargos.length > 0) {
-        resultado.cargos.forEach((cargo) => {
-          this.addCargo(cargo.id); 
+        this.tituloFormulario = `Atualizar ${resultado.nome} ${resultado.sobrenome}`;
+        this.formulario = new FormGroup({
+            id: new FormControl(resultado.id),
+            nome: new FormControl(resultado.nome),
+            sobrenome: new FormControl(resultado.sobrenome),
+            idPessoaXCargos: new FormArray([]),
         });
-      }
-    });
-  }
 
-  get cargos() {
-    return (this.formulario.get('cargos') as FormArray);
-  }
-
-  addCargo(idCargo: number | null = null): void {
-    const cargoGroup = new FormGroup({
-      idCargo: new FormControl(idCargo), // Usa idCargo para capturar o ID correto
+        if (resultado.idPessoaXCargos && resultado.idPessoaXCargos.length > 0) {
+            resultado.idPessoaXCargos.forEach((cargo) => {
+                this.addCargo(cargo); 
+            });
+        }
     });
-    this.cargos.push(cargoGroup);
-  }
+}
+
+
+get cargos(): FormArray {
+  return this.formulario.get('idPessoaXCargos') as FormArray;
+}
+
+
+addCargo(cargo?: any): void {
+    const cargosFormArray = this.formulario.get('idPessoaXCargos') as FormArray;
+    cargosFormArray.push(new FormGroup({
+        idCargo: new FormControl(cargo ? cargo.idCargo : ''),
+    }));
+
+}
 
   removeCargo(index: number): void {
     this.cargos.removeAt(index);
@@ -109,7 +117,7 @@ export class PessoaComponent implements OnInit {
             }
         );
     } else {
-        this.pessoaService.SalvarPessoa(pessoa).subscribe(
+        this.pessoaService.SalvarPessoa(pessoa, cargosIds).subscribe(
             (resultado) => {
                 this.visibilidadeFormulario = false;
                 this.visibilidadeTabela = true;
@@ -119,7 +127,12 @@ export class PessoaComponent implements OnInit {
                 });
             },
             (error) => {
+              if(cargosIds.length == 0){
+                alert('Erro ao inserir a pessoa: é necessário ter ao menos um cargo cadastrado!');
+              }
+              else {
                 alert('Erro ao inserir a pessoa: ' + error.message);
+              }
             }
         );
     }

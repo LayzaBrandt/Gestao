@@ -17,7 +17,7 @@ namespace GestaoApi.Controllers
              _pessoaXCargoRepository = pessoaXCargoRepository;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pessoa>>> GetPessoas(){
+        public async Task<ActionResult<IEnumerable<PessoaDto>>> GetPessoas(){
 
             try
             {
@@ -35,6 +35,7 @@ namespace GestaoApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Pessoa>> GetPessoa(long id){
 
+     Console.WriteLine("pessoa: " + string.Join(", ", id));
             var pessoa = await _pessoaRepository.SelecionarByPK(id);
             pessoa.Id = id;
             if (pessoa == null)
@@ -44,47 +45,44 @@ namespace GestaoApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Pessoa> SalvarPessoa(Pessoa pessoa, [FromQuery] List<long> cargosIds)
+public ActionResult<PessoaDto> SalvarPessoa([FromBody] PessoaDto body)
+{
+    if (body?.Id == null)
+    {
+        return BadRequest("Dados da pessoa não podem ser nulos.");
+    }
+
+    if (body.CargosIds != null && body.CargosIds.Any())
+    {
+        Console.WriteLine("CARGOS: " + string.Join(", ", body.CargosIds));
+        if (body.Pessoa != null)
         {
-            _pessoaRepository.AddPessoa(pessoa);
-
-            if (pessoa.Id > 0)
-            {
-                if (cargosIds != null && cargosIds.Count > 0)
-                {
-                    foreach (var cargoId in cargosIds)
-                    {
-                        var pessoaXCargo = new PessoaXCargo
-                        {
-                            IdPessoa = pessoa.Id,
-                            IdCargo = cargoId
-                        };
-
-                        _pessoaXCargoRepository.AddPessoaXCargo(pessoaXCargo); 
-                    }
-                }
-
-                _pessoaXCargoRepository.SaveChanges(); 
-            }
-
-            return CreatedAtAction("GetPessoa", new { id = pessoa.Id }, pessoa);
+        _pessoaRepository.AddPessoa(body.Pessoa, body.CargosIds);
         }
+    }
+    else
+    {
+        return BadRequest("Dados de cargo da pessoa selecionada não podem ser nulos.");
+    }
 
+    return CreatedAtAction("GetPessoa", new { id = body.Id }, body);
+}
 
-
-        [HttpPut]
+    [HttpPut]
     public IActionResult AtualizarPessoa([FromBody] PessoaDto body )
     {
 
-    if (body?.Pessoa == null)
+    if (body == null)
     {
         return BadRequest("Dados da pessoa não podem ser nulos.");
     }
     if (body.CargosIds != null && body.CargosIds.Any())
         {
     Console.WriteLine("CARGOS: " + string.Join(", ", body.CargosIds));
+    if (body.Pessoa != null)
+        {
     _pessoaRepository.UpdatePessoa(body.Pessoa, body.CargosIds);
-
+        }
     }
     else
     {

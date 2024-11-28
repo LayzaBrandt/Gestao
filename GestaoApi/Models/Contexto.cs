@@ -18,6 +18,13 @@ namespace GestaoApi.Models
         {
 
             modelBuilder.Entity<PessoaXCargo>()
+        .HasKey(pc => pc.Id); 
+
+            modelBuilder.Entity<PessoaXCargo>()
+                .Property(pc => pc.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<PessoaXCargo>()
                 .HasOne(pc => pc.Pessoa)
                 .WithMany(p => p.IdPessoaXCargos)
                 .HasForeignKey(pc => pc.IdPessoa)

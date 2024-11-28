@@ -1,8 +1,6 @@
-using System.Text.Json.Serialization;
 using GestaoApi.Controllers.Interfaces;
 using GestaoApi.Models;
 using GestaoApi.Models.Repositories;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -22,7 +20,13 @@ builder.Services.AddDbContext<Contexto>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoBD"));
     });
 builder.Services.AddCors ();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+ .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
       c =>

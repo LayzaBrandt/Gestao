@@ -24,8 +24,9 @@
                     <td class="px-3 border-gray-300">{{ pessoa.nome }}</td>
                     <td class="px-3 border-gray-300">{{ pessoa.sobrenome }}</td>
                     <td class="px-3 border-gray-300">
-                        <span *ngFor="let cargo of pessoa.cargos; let last = last">
-                            {{ cargo.descricao }}<span *ngIf="!last">, </span>
+                        <span *ngFor="let cargo of pessoa.idPessoaXCargos || []; let i = index">
+                            {{ cargo.descricaoCargo }}
+                            <span *ngIf="i < (pessoa.idPessoaXCargos?.length || 0) - 1">, </span>
                         </span>
                     </td>
                     <td class="p-2 border-gray-300 flex">
@@ -57,17 +58,27 @@
                 </div>
                 <div class="form-group mb-4">
                     <label class="block text-gray-700">Cargos</label>
-                    <div formArrayName="cargos">
-                        <div *ngFor="let cargo of cargos.controls; let i = index" class="grid grid-cols-3 gap-4 mb-2 items-center">
-                            <div [formGroupName]="i" class="flex items-center space-x-2">
-                                <select class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="idCargo">
+                    <div formArrayName="idPessoaXCargos">
+                        <div *ngFor="let cargo of cargos.controls; let i = index" class="grid gap-4 mb-4 items-center">
+                            <div [formGroupName]="i" class="flex items-center ">
+                                <select class="form-control mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-colorGoiaba focus:border-colorGoiaba bg-white hover:bg-gray-100 transition duration-200 ease-in-out" formControlName="idCargo">
+                                    <option value="" disabled>Selecione um Cargo</option>
                                     <option *ngFor="let c of listaCargos" [value]="c.id">{{ c.descricao }}</option>
                                 </select>
-                                <button type="button" (click)="removeCargo(i)" class="ml-2 text-red-500">Remover</button>
+                                <button type="button" (click)="removeCargo(i)" class="ml-2 flex items-center justify-center text-white bg-slate-900 border border-slate-900 rounded-md px-3 py-1 transition duration-200 ease-in-out 
+                                 hover:bg-red-800  ">
+                                    <i class="fas fa-trash-alt"></i> <span class="ml-1">Remover</span>
+                                </button>
+                            </div>
+                            <div *ngIf="cargo.get('idCargo')?.invalid && (cargo.get('idCargo')?.touched || cargo.get('idCargo')?.dirty)" class="text-red-500 text-sm mt-1">
+                                Por favor, selecione um cargo.
                             </div>
                         </div>
-                        <button type="button" (click)="addCargo()" class="bg-gray-500 text-white px-4 py-2 rounded mt-2">Adicionar Cargo</button>
+                        <button type="button" (click)="addCargo()" class="bg-colorGoiaba text-white px-4 py-2 rounded mt-2 hover:bg-colorGoiaba-dark transition duration-200 ease-in-out">
+                            Adicionar Cargo
+                        </button>
                     </div>
+                    
                 </div>
                 <div class="form-group mt-4 flex justify-between">
                     <button type="submit" class="bg-colorGoiaba text-white hover:bg-slate-900 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105">Salvar</button>

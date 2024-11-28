@@ -1,29 +1,31 @@
 using GestaoApi.Controllers.Interfaces;
 using GestaoApi.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 public class CargoRepository : ICargoRepository
 {
     private readonly Contexto _context;
     private readonly ILogger<CargoRepository> _logger;
 
-
     public CargoRepository(Contexto context, ILogger<CargoRepository> logger)
     {
         _context = context;
         _logger = logger;
     }
+
     public async Task<IEnumerable<Cargo>> SelecionaTodos()
     {
         try
         {
-            if (_context == null)
-            {
-                _logger.LogError("O contexto n�o est� inicializado.");
-                return Enumerable.Empty<Cargo>();
-            }
-            var cargo = await _context.Cargo
+            var cargo = await _context.Cargos
                 .ToListAsync();
+
+                _logger.LogInformation("Valor retornado de cargo: {@Cargo}", cargo);
             return cargo;
         }
         catch (Exception ex)
@@ -32,10 +34,11 @@ public class CargoRepository : ICargoRepository
             throw;
         }
     }
+
     public void AddCargo(Cargo cargo)
     {
         _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Cargo ON");
-        _context.Cargo.Add(cargo);
+        _context.Cargos.Add(cargo);
         _context.SaveChanges();
     }
 
@@ -45,27 +48,30 @@ public class CargoRepository : ICargoRepository
         _context.SaveChanges();
     }
 
-    public void RemoveCargo(int id)
+    public void RemoveCargo(long id)
     {
-        var cargo = _context.Cargo.Find(id);
+        var cargo = _context.Cargos.Find(id);
         if (cargo != null)
         {
-            _context.Cargo.Remove(cargo);
+            _context.Cargos.Remove(cargo);
             _context.SaveChanges();
+        }
+        else
+        {
+            throw new NotFoundException($"Cargo com ID {id} não encontrado");
         }
     }
 
-    public async Task<Cargo> SelecionarByPK(int id)
+    public async Task<Cargo> SelecionarByPK(long id)
     {
-        var cargo = await _context.Cargo.Where(x => x.Id == id).FirstOrDefaultAsync();
+        var cargo = await _context.Cargos.Where(x => x.Id == id).FirstOrDefaultAsync();
         if (cargo != null)
         {
             return cargo;
         }
         else
         {
-            throw new NotFoundException($"Cargo com ID {id} n�o encontrado");
+            throw new NotFoundException($"Cargo com ID {id} não encontrado");
         }
     }
-
 }

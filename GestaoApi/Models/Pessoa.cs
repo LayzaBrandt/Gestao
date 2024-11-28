@@ -3,21 +3,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GestaoApi.Models
 {
+    [Table("Pessoa")]
     public partial class Pessoa
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string? Nome { get; set; }
 
         public string? Sobrenome { get; set; }
 
-        public string? Endereco{ get; set; }
+        public ICollection<PessoaXCargo> IdPessoaXCargos { get; set; } = new List<PessoaXCargo>();
 
-        public DateOnly? DataNascimento { get; set; }
-
-        public virtual Cargo? InformacoesCargo { get; set; }
+        public PessoaXRecursoEmpresa? IdPessoaXRecursoEmpresa { get; set; }
 
     }
 }

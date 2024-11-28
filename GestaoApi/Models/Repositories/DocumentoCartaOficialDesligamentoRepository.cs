@@ -23,8 +23,7 @@ public class DocumentoCartaOficialDesligamentoRepository : IDocumentoCartaOficia
                 return Enumerable.Empty<DocumentoCartaOficialDesligamento>();
             }
 
-            var documento = await _context.Documento
-                .Include(c => c.idPessoa)
+            var documento = await _context.Documento.Include(c => c.IdPessoa)
                 .ToListAsync();
 
             return documento;
@@ -38,9 +37,9 @@ public class DocumentoCartaOficialDesligamentoRepository : IDocumentoCartaOficia
     public void AddDocumento(DocumentoCartaOficialDesligamento documento)
     {
         _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Documento ON");
-        if (documento.idPessoa != null)
+        if (documento.IdPessoa != null)
         {
-            _context.Attach(documento.idPessoa);
+            _context.Attach(documento.IdPessoa);
         }
         _context.Documento.Add(documento);
         _context.SaveChanges();
@@ -52,7 +51,7 @@ public class DocumentoCartaOficialDesligamentoRepository : IDocumentoCartaOficia
         _context.SaveChanges();
     }
 
-    public void RemoveDocumento(int id)
+    public void RemoveDocumento(long id)
     {
         var documento = _context.Documento.Find(id);
         if (documento != null)
@@ -62,9 +61,9 @@ public class DocumentoCartaOficialDesligamentoRepository : IDocumentoCartaOficia
         }
     }
 
-    public async Task<DocumentoCartaOficialDesligamento> SelecionarByPK(int id)
+    public async Task<DocumentoCartaOficialDesligamento> SelecionarByPK(long id)
     {
-        var documento = await _context.Documento.Include(c => c.idPessoa)
+        var documento = await _context.Documento.Include(c => c.IdPessoa)
                 .Where(x => x.Id == id).FirstOrDefaultAsync();
         if (documento != null)
         {

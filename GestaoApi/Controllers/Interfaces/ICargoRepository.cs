@@ -4,13 +4,13 @@ namespace GestaoApi.Controllers.Interfaces
 {
     public interface ICargoRepository
     {
-        void AddCargo(Cargo cargo);
+        void AddCargo(Cargo cargos);
 
-        void UpdateCargo(Cargo cargo);
+        void UpdateCargo(Cargo cargos);
 
-        void RemoveCargo(int id);
+        void RemoveCargo(long id);
 
-        Task<Cargo> SelecionarByPK(int id);
+        Task<Cargo> SelecionarByPK(long id);
 
         Task<IEnumerable<Cargo>> SelecionaTodos();
     }

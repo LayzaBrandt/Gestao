@@ -45,6 +45,6 @@ export class TabComponent implements OnInit {
 
   onSearch() {
     this.searchService.setSearchTerm(this.searchTerm);
-    this.router.navigate(['/duvidas']); // Navegar para a página de dúvidas
+    this.router.navigate(['/duvidas']);
   }
 }

@@ -4,7 +4,10 @@ export class Pessoa {
     id!: number;
     nome!: string;
     sobrenome!: string;
-    endereco!: string;
-    dataNascimento!: Date;
-    informacoesCargo!: Cargo; 
+    cargos?: Cargo[];
+}
+
+export interface PessoaXCargo {
+    idPessoa: number;
+    idCargo: number;
 }

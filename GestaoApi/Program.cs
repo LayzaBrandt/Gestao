@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using GestaoApi.Controllers.Interfaces;
 using GestaoApi.Models;
+using GestaoApi.Models.Repositories;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -8,6 +9,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("appsettings.json");
+
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var defaultCulture = builder.Configuration["Culture:DefaultCulture"];
@@ -32,18 +34,13 @@ builder.Services.AddSwaggerGen(
           });
       });
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
+builder.Services.AddScoped<IPessoaXCargoRepository, PessoaXCargoRepository>();
 builder.Services.AddScoped<ICargoRepository, CargoRepository>();
 builder.Services.AddScoped<IDocumentoCartaOficialDesligamentoRepository, DocumentoCartaOficialDesligamentoRepository>();
 
 var app = builder.Build();
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-// Configure the HTTP request pipeline.
-/*if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}*/
 app.UseHttpsRedirection();
 app.UseRouting();
 

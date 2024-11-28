@@ -7,17 +7,17 @@ namespace GestaoApi.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string? Empresa { get; set; }
 
-        public virtual Pessoa idPessoa { get; set; }
+        public virtual Pessoa? IdPessoa { get; set; }
 
         public string? enderecoEmpresa { get; set; }
 
-        public DateOnly dataEmissao { get; set; }
+        public DateOnly DataEmissao { get; set; }
 
-        public DateOnly? dataEfetivaDesligamento { get; set; }
+        public DateOnly? DataEfetivaDesligamento { get; set; }
         
         public virtual MotivoDesligamentoEnum idMotivoDesligamento { get; set; }
     }

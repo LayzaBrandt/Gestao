@@ -1,4 +1,4 @@
-import { DecimalPipe } from "@angular/common";
+import { Pessoa } from "./Pessoa";
 
 export class Cargo {
     id!: number;
@@ -7,4 +7,5 @@ export class Cargo {
     dataEntrada!: Date;
     dataSaida!: Date;
     informacoesSetor!: number; 
+    pessoas?: Pessoa[]; 
 }

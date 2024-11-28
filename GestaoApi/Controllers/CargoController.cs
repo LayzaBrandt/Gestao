@@ -29,7 +29,7 @@ namespace GestaoApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cargo>> GetCargo(int id){
+        public async Task<ActionResult<Cargo>> GetCargo(long id){
 
             var cargos = await _cargoRepository.SelecionarByPK(id);
             cargos.Id = id;
@@ -53,7 +53,7 @@ namespace GestaoApi.Controllers
         } 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> ExcluirCargoAsync(int id){
+        public async Task<ActionResult> ExcluirCargoAsync(long id){
             var cargo = await _cargoRepository.SelecionarByPK(id);
 
             if(cargo == null){

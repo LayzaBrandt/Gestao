@@ -10,9 +10,11 @@ namespace GestaoApi.Controllers
     public class PessoaController : ControllerBase
     {
         private readonly IPessoaRepository _pessoaRepository;
-        public PessoaController(IPessoaRepository pessoaRepository)
+        private readonly IPessoaXCargoRepository _pessoaXCargoRepository;
+        public PessoaController(IPessoaRepository pessoaRepository,IPessoaXCargoRepository pessoaXCargoRepository)
         {
             _pessoaRepository = pessoaRepository;
+             _pessoaXCargoRepository = pessoaXCargoRepository;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pessoa>>> GetPessoas(){
@@ -31,7 +33,7 @@ namespace GestaoApi.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pessoa>> GetPessoa(int id){
+        public async Task<ActionResult<Pessoa>> GetPessoa(long id){
 
             var pessoa = await _pessoaRepository.SelecionarByPK(id);
             pessoa.Id = id;
@@ -42,20 +44,59 @@ namespace GestaoApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Pessoa> SalvarPessoa(Pessoa pessoa){
+        public ActionResult<Pessoa> SalvarPessoa(Pessoa pessoa, [FromQuery] List<long> cargosIds)
+        {
             _pessoaRepository.AddPessoa(pessoa);
+
+            if (pessoa.Id > 0)
+            {
+                if (cargosIds != null && cargosIds.Count > 0)
+                {
+                    foreach (var cargoId in cargosIds)
+                    {
+                        var pessoaXCargo = new PessoaXCargo
+                        {
+                            IdPessoa = pessoa.Id,
+                            IdCargo = cargoId
+                        };
+
+                        _pessoaXCargoRepository.AddPessoaXCargo(pessoaXCargo); 
+                    }
+                }
+
+                _pessoaXCargoRepository.SaveChanges(); 
+            }
+
             return CreatedAtAction("GetPessoa", new { id = pessoa.Id }, pessoa);
-        } 
+        }
+
+
 
         [HttpPut]
-        public IActionResult AtualizarPessoa(Pessoa pessoa){
-            _pessoaRepository.UpdatePessoa(pessoa);
+    public IActionResult AtualizarPessoa([FromBody] PessoaDto body )
+    {
 
-            return NoContent();
-        } 
+    if (body?.Pessoa == null)
+    {
+        return BadRequest("Dados da pessoa não podem ser nulos.");
+    }
+    if (body.CargosIds != null && body.CargosIds.Any())
+        {
+    Console.WriteLine("CARGOS: " + string.Join(", ", body.CargosIds));
+    _pessoaRepository.UpdatePessoa(body.Pessoa, body.CargosIds);
+
+    }
+    else
+    {
+        Console.WriteLine("A lista está vazia ou é nula.");
+    }
+
+    return NoContent();
+    }
+
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> ExcluirPessoaAsync(int id){
+        public async Task<ActionResult> ExcluirPessoaAsync(long id){
             var pessoa = await _pessoaRepository.SelecionarByPK(id);
             
             if(pessoa == null){

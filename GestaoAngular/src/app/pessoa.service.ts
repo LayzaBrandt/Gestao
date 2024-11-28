@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pessoa } from './Pessoa';
+import { Pessoa, PessoaXCargo } from './Pessoa';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,12 +30,21 @@ export class PessoaService {
     return this.http.post<Pessoa>(this.url, pessoa, httpOptions)
   }
 
-  AtualizarPessoa(pessoa: Pessoa) : Observable<Pessoa>{
-    return this.http.put<Pessoa>(this.url, pessoa, httpOptions);
-  }
+  AtualizarPessoa(pessoa: Pessoa, cargosIds: number[]): Observable<Pessoa> {
+    const body = { pessoa, cargosIds };
+    return this.http.put<Pessoa>(this.url, body, httpOptions);
+}
+
 
   ExcluirPessoa(pessoaId : number) : Observable<any>{
     const apiUrl = `${this.url}/${pessoaId}`;
     return this.http.delete<number>(apiUrl, httpOptions);
+  }
+  getCargosPessoa(id: number): Observable<PessoaXCargo[]> {
+    return this.http.get<PessoaXCargo[]>(`${this.url}/${id}/cargos`);
+  }
+
+  addCargoPessoa(id: number, cargo: PessoaXCargo): Observable<PessoaXCargo> {
+    return this.http.post<PessoaXCargo>(`${this.url}/${id}/cargos`, cargo);
   }
 }

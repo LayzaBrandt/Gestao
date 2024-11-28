@@ -1,11 +1,11 @@
 
-<div class="bg-gray-200 border border-gray-400 h-20 flex justify-between items-start px-5">
+<div class="bg-gray-200 border h-20 flex justify-between items-start px-5">
     <img src="../../assets/img/Gesteste (140 x 80 px).png" alt="Logo">
     <div class="flex justify-end items-end">
     <div class="search-container">
         <input type="search" id="search" name="query" placeholder="Digite sua pesquisa"  [(ngModel)]="searchTerm">
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2"
-        (click)="onSearch()">Pesquisar</button>
+        <button type="submit" class="text-white px-4 py-2 ml-2"
+        (click)="onSearch()"><lucide-icon name="search" class="w-6 flex-auto justify-center h-6"></lucide-icon></button>
     </div>
     <div class="flex p-3 bg-gray-200">
         <button class="bg-colorGoiaba text-white flex m-1 px-2 py-1 rounded-lg shadow-md hover:bg-slate-900 transition duration-800  " >

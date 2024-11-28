@@ -60,7 +60,7 @@ import { SearchService } from './search.service';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
-    LucideAngularModule.pick({ CircleHelp, Menu, CircleUser,CirclePlus,PencilLine,SquareX,Undo2,MousePointerIcon, FileChartColumn, MousePointerClick,CircleDollarSign   }),
+    LucideAngularModule.pick({ CircleHelp, Menu, CircleUser,CirclePlus,PencilLine,SquareX,Undo2,MousePointerIcon, FileChartColumn, Search, MousePointerClick,CircleDollarSign   }),
     ModalModule.forRoot()
   ],
   providers: [HttpClientModule ,DuvidasService ,TabService, PessoaService, CargoService, DocumentoService,SearchService],

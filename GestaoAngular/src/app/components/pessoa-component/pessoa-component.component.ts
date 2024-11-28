@@ -1,11 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder} from '@angular/forms';
 import { PessoaService } from '../../pessoa.service';
 import { Pessoa } from '../../Pessoa';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Cargo } from '../../Cargo';
 import { CargoService } from '../../cargo.service';
-
 
 @Component({
   selector: 'app-pessoa-component',
@@ -13,105 +12,138 @@ import { CargoService } from '../../cargo.service';
   styleUrls: ['./pessoa-component.component.css'],
 })
 export class PessoaComponent implements OnInit {
-
-  formulario: any;
+  formulario!: FormGroup;
   tituloFormulario!: string;
   pessoas!: Pessoa[];
   nomePessoa!: string;
   pessoaId!: number;
-  listaCargos!: Cargo[];
+  listaCargos: Array<any> = [];
   visibilidadeTabela: boolean = true;
   visibilidadeFormulario: boolean = false;
-  panelOpenState = false;
   modalRef!: BsModalRef;
-  enumKeys: any;
 
-  constructor(private pessoaService: PessoaService,
+  constructor(
+    private fb: FormBuilder,
+    private pessoaService: PessoaService,
     private cargoService: CargoService,
-    private modalService: BsModalService) { }
-    
+    private modalService: BsModalService
+  ) {
 
-  ngOnInit(): void {
-    this.pessoaService.GetPessoas().subscribe(resultado => {
-        this.pessoas = resultado;
-      });
-      this.cargoService.GetCargos().subscribe(resultado => {
-        this.listaCargos = resultado;
-      });
+    this.formulario = this.fb.group({
+      id: [0],
+      nome: [''],
+      sobrenome: ['']
+    });
   }
 
-  ExibirFormularioCadastro(): void{
+  ngOnInit(): void {
+    this.pessoaService.GetPessoas().subscribe((resultado) => {
+      this.pessoas = resultado;
+    });
+    this.cargoService.GetCargos().subscribe((resultado) => {
+      this.listaCargos = resultado;
+    });
+  }
+
+  ExibirFormularioCadastro(): void {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
     this.tituloFormulario = 'Nova Pessoa';
     this.formulario = new FormGroup({
       nome: new FormControl(null),
       sobrenome: new FormControl(null),
-      dataNascimento: new FormControl(null), 
-      endereco: new FormControl(null), 
-      informacoesCargo: new FormControl(null) ,
+      cargos: new FormArray([]), // Inicializa o FormArray para cargos
     });
   }
 
   ExibirFormularioAtualizacao(id: any): void {
     this.visibilidadeTabela = false;
     this.visibilidadeFormulario = true;
-    this.pessoaService.GetPessoa(id).subscribe(resultado =>{
-      console.log(resultado);
+    this.pessoaService.GetPessoa(id).subscribe((resultado) => {
       this.tituloFormulario = `Atualizar ${resultado.nome} ${resultado.sobrenome}`;
       this.formulario = new FormGroup({
         id: new FormControl(resultado.id),
         nome: new FormControl(resultado.nome),
         sobrenome: new FormControl(resultado.sobrenome),
-        endereco: new FormControl(resultado.endereco),
-        dataNascimento: new FormControl(resultado.dataNascimento),
-        informacoesCargo: new FormControl(resultado.informacoesCargo)
-      })
-    })
-}
+        cargos: new FormArray([]),
+      });
 
+      if (resultado.cargos && resultado.cargos.length > 0) {
+        resultado.cargos.forEach((cargo) => {
+          this.addCargo(cargo.id); 
+        });
+      }
+    });
+  }
+
+  get cargos() {
+    return (this.formulario.get('cargos') as FormArray);
+  }
+
+  addCargo(idCargo: number | null = null): void {
+    const cargoGroup = new FormGroup({
+      idCargo: new FormControl(idCargo), // Usa idCargo para capturar o ID correto
+    });
+    this.cargos.push(cargoGroup);
+  }
+
+  removeCargo(index: number): void {
+    this.cargos.removeAt(index);
+  }
 
   EnviarFormulario(): void {
     const pessoa: Pessoa = this.formulario.value;
-    if(pessoa.id > 0){
-      this.pessoaService.AtualizarPessoa(pessoa).subscribe(resultado => {
-        this.visibilidadeFormulario = false;
-        this.visibilidadeTabela = true;
-        alert('Pessoa atualizada com Sucesso');
-        this.pessoaService.GetPessoas().subscribe(registros =>{
-          this.pessoas = registros;
-        });
-      });
+    const cargosIds: number[] = this.cargos.controls.map((cargo) => cargo.value.idCargo); 
+    if (pessoa.id > 0) {
+        this.pessoaService.AtualizarPessoa(pessoa, cargosIds).subscribe(
+            (resultado) => {
+                this.visibilidadeFormulario = false;
+                this.visibilidadeTabela = true;
+                alert('Pessoa atualizada com sucesso');
+                this.pessoaService.GetPessoas().subscribe((registros) => {
+                    this.pessoas = registros;
+                });
+            },
+            (error) => {
+                alert('Erro ao atualizar a pessoa: ' + error.message);
+            }
+        );
+    } else {
+        this.pessoaService.SalvarPessoa(pessoa).subscribe(
+            (resultado) => {
+                this.visibilidadeFormulario = false;
+                this.visibilidadeTabela = true;
+                alert('Pessoa inserida com sucesso');
+                this.pessoaService.GetPessoas().subscribe((registros) => {
+                    this.pessoas = registros;
+                });
+            },
+            (error) => {
+                alert('Erro ao inserir a pessoa: ' + error.message);
+            }
+        );
     }
-    else{
-    this.pessoaService.SalvarPessoa(pessoa).subscribe(resultado => {
-      this.visibilidadeFormulario = false;
-      this.visibilidadeTabela = true;
-      alert('Pessoa inserida com Sucesso');
-      this.pessoaService.GetPessoas().subscribe(registros =>{
-        this.pessoas = registros;
-      });
-    });
-  }
-  }
-  Voltar(): void{
+}
+
+
+  Voltar(): void {
     this.visibilidadeTabela = true;
     this.visibilidadeFormulario = false;
   }
 
-  ExibirConfirmacaoExclusao(id: any, nomePessoa: any, conteudoModal: TemplateRef<any>): void{
+  ExibirConfirmacaoExclusao(id: any, nomePessoa: any, conteudoModal: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(conteudoModal);
     this.pessoaId = id;
     this.nomePessoa = nomePessoa;
   }
 
-  ExcluirPessoa(id: any){
-    this.pessoaService.ExcluirPessoa(id).subscribe(resultado =>
-      {this.modalRef.hide();
+  ExcluirPessoa(id: any): void {
+    this.pessoaService.ExcluirPessoa(id).subscribe((resultado) => {
+      this.modalRef.hide();
       alert('Pessoa excluída com sucesso');
-      this.pessoaService.GetPessoas().subscribe(registros =>{
+      this.pessoaService.GetPessoas().subscribe((registros) => {
         this.pessoas = registros;
-      })
-  })
+      });
+    });
   }
 }

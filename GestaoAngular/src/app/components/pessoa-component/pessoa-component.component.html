@@ -1,6 +1,6 @@
-<section class="h-full"  *ngIf="visibilidadeTabela">
+<section class="h-full" *ngIf="visibilidadeTabela">
     <div class="bg-gray-200 rounded-md">
-        <div class="flex justify-between ">
+        <div class="flex justify-between">
             <h1 class="text-2xl font-extrabold text-colorGoiaba border-b-2 border-colorGoiaba">
                 Lista de Pessoas Cadastradas
             </h1>
@@ -10,30 +10,30 @@
         </div>
         
         <hr />
-        <table class="rounded-lg overflow-hidden shadow-lg bg-white flex-auto justify-between ">
-            <thead class="bg-gray-800 text-white ">
+        <table class="rounded-lg overflow-hidden shadow-lg bg-white flex-auto justify-between">
+            <thead class="bg-gray-800 text-white">
                 <tr>
                     <th class="px-3 text-left">Nome</th>
                     <th class="px-3 text-left">Sobrenome</th>
-                    <th class="px-3 text-left">Data de Nascimento</th>
-                    <th class="px-3 text-left">Endereço</th>
-                    <th class="px-3 text-left">Cargo</th>
+                    <th class="px-3 text-left">Cargo(s)</th>
                     <th class="px-3 text-left">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let pessoa of pessoas" class="hover:bg-gray-100 transition-colors duration-300 flex-auto justify-between">
-                    <td class="px-3 border-gray-300 ">{{ pessoa.nome }}</td>
+                    <td class="px-3 border-gray-300">{{ pessoa.nome }}</td>
                     <td class="px-3 border-gray-300">{{ pessoa.sobrenome }}</td>
-                    <td class="px-3 border-gray-300">{{ pessoa.dataNascimento }}</td>
-                    <td class="px-3 border-gray-300">{{ pessoa.endereco }}</td>
-                    <td class="px-3 border-gray-300">{{ pessoa.informacoesCargo.descricao }}</td>
-                    <td class="p-2 border-gray-300 flex ">
+                    <td class="px-3 border-gray-300">
+                        <span *ngFor="let cargo of pessoa.cargos; let last = last">
+                            {{ cargo.descricao }}<span *ngIf="!last">, </span>
+                        </span>
+                    </td>
+                    <td class="p-2 border-gray-300 flex">
                         <button type="button" class="btn-sm font-semibold bg-slate-900 text-violet-50 hover:bg-slate-700 hover:text-white border border-slate-700 rounded-md transition duration-300 flex" (click)="ExibirFormularioAtualizacao(pessoa.id)">
                             <lucide-icon name="pencil-line" class="w-4"></lucide-icon> Atualizar
                         </button>
-                        <button type="button" class=" btn-sm font-semibold bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-md transition duration-300 flex px-3 py-1" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">
-                            <lucide-icon name="square-x" class="w-4 "></lucide-icon> Excluir
+                        <button type="button" class="btn-sm font-semibold bg-slate-900 text-red-500 hover:bg-red-700 hover:text-white border border-red-500 rounded-md transition duration-300 flex px-3 py-1" (click)="ExibirConfirmacaoExclusao(pessoa.id, pessoa.nome, conteudoModal)">
+                            <lucide-icon name="square-x" class="w-4"></lucide-icon> Excluir
                         </button>
                     </td>
                 </tr>
@@ -49,41 +49,41 @@
             <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
                 <div class="form-group mb-4">
                     <label class="block text-gray-700">Nome</label>
-                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="nome"/>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="nome" />
                 </div>
                 <div class="form-group mb-4">
                     <label class="block text-gray-700">Sobrenome</label>
-                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="sobrenome"/>
+                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="sobrenome" />
                 </div>
                 <div class="form-group mb-4">
-                    <label class="block text-gray-700">Data de Nascimento</label>
-                    <input type="date" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="dataNascimento"/>
-                </div>
-                <div class="form-group mb-4">
-                    <label class="block text-gray-700">Endereço</label>
-                    <input type="text" class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="endereco"/>
-                </div>
-                <div class="form-group mb-4">
-                    <label class="block text-gray-700">Cargo</label>
-                    <select class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="informacoesCargo">
-                        <option *ngFor="let cargo of listaCargos" [ngValue]="cargo">{{ cargo.descricao }}</option>
-                    </select>
+                    <label class="block text-gray-700">Cargos</label>
+                    <div formArrayName="cargos">
+                        <div *ngFor="let cargo of cargos.controls; let i = index" class="grid grid-cols-3 gap-4 mb-2 items-center">
+                            <div [formGroupName]="i" class="flex items-center space-x-2">
+                                <select class="form-control mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-colorGoiaba focus:border-colorGoiaba" formControlName="idCargo">
+                                    <option *ngFor="let c of listaCargos" [value]="c.id">{{ c.descricao }}</option>
+                                </select>
+                                <button type="button" (click)="removeCargo(i)" class="ml-2 text-red-500">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" (click)="addCargo()" class="bg-gray-500 text-white px-4 py-2 rounded mt-2">Adicionar Cargo</button>
+                    </div>
                 </div>
                 <div class="form-group mt-4 flex justify-between">
                     <button type="submit" class="bg-colorGoiaba text-white hover:bg-slate-900 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out transform hover:scale-105">Salvar</button>
                     <button type="button" class="bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-white rounded-md px-4 py-2 font-semibold shadow-md transition duration-300 ease-in-out flex" (click)="Voltar()">
-                        <lucide-icon name="undo-2"></lucide-icon>Voltar</button>
+                        <lucide-icon name="undo-2"></lucide-icon> Voltar
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
-<ng-template #conteudoModal>
+<ng-template #conteudoModal let-modal="modal">
     <div class="modal-header">
         <h5 class="modal-title">Confirmação de exclusão</h5>
-        <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -91,7 +91,7 @@
         <p>Prosseguir com a exclusão do(a) {{ nomePessoa }}?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
         <button type="button" class="btn btn-danger" (click)="ExcluirPessoa(pessoaId)">Excluir</button>
     </div>
 </ng-template>

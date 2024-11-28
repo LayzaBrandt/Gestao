@@ -1,7 +1,6 @@
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
-/* Certifique-se de que não há regras globais que possam afetar o scroll */
 
 html, body {
     height: 100%;

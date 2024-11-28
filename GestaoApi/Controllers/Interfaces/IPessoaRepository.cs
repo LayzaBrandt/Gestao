@@ -1,4 +1,6 @@
 using GestaoApi.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GestaoApi.Controllers.Interfaces
 {
@@ -6,11 +8,11 @@ namespace GestaoApi.Controllers.Interfaces
     {
         void AddPessoa(Pessoa pessoa);
 
-        void UpdatePessoa(Pessoa pessoa);
+        void UpdatePessoa(Pessoa pessoa, List<long> novosCargosIds);
 
-        void RemovePessoa(int id);
+        void RemovePessoa(long id);
 
-        Task<Pessoa> SelecionarByPK(int id);
+        Task<Pessoa> SelecionarByPK(long id);
 
         Task<IEnumerable<Pessoa>> SelecionaTodos();
     }

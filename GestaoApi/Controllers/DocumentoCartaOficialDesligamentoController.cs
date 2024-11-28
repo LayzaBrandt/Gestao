@@ -29,7 +29,7 @@ namespace GestaoApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DocumentoCartaOficialDesligamento>> GetDocumento(int id){
+        public async Task<ActionResult<DocumentoCartaOficialDesligamento>> GetDocumento(long id){
 
             var documentos = await _documentoCartaOficialDesligamentoRepository.SelecionarByPK(id);
             documentos.Id = id;
@@ -53,7 +53,7 @@ namespace GestaoApi.Controllers
         } 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> ExcluirDocumentoAsync(int id){
+        public async Task<ActionResult> ExcluirDocumentoAsync(long id){
             var documento = await _documentoCartaOficialDesligamentoRepository.SelecionarByPK(id);
 
             if(documento == null){

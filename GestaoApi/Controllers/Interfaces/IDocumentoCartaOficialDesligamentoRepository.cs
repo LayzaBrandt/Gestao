@@ -8,9 +8,9 @@ namespace GestaoApi.Controllers.Interfaces
 
         void UpdateDocumento(DocumentoCartaOficialDesligamento documento);
 
-        void RemoveDocumento(int id);
+        void RemoveDocumento(long id);
 
-        Task<DocumentoCartaOficialDesligamento> SelecionarByPK(int id);
+        Task<DocumentoCartaOficialDesligamento> SelecionarByPK(long id);
 
         Task<IEnumerable<DocumentoCartaOficialDesligamento>> SelecionaTodos();
     }
